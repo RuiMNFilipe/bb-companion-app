@@ -8,7 +8,7 @@ import {
   IsString,
   Min,
 } from 'class-validator';
-import { CreatePositionDto } from 'src/position/dto/create-position.dto';
+import { CreatePositionDto } from 'src/static-data/position/dto/create-position.dto';
 
 export class CreateRaceDto {
   @IsString()

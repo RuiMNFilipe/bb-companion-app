@@ -8,11 +8,11 @@ import {
   Delete,
 } from '@nestjs/common';
 import { RacesService } from './races.service';
-import { Prisma } from '@prisma/client';
 import { CreateRaceDto } from './dto/create-race.dto';
 import { RaceDto } from './dto/race.dto';
-import { PositionService } from 'src/position/position.service';
-import { PositionDto } from 'src/position/dto/position.dto';
+import { PositionService } from 'src/static-data/position/position.service';
+import { PositionDto } from 'src/static-data/position/dto/position.dto';
+import { UpdateRaceDto } from './dto/update-race.dto';
 
 @Controller('races')
 export class RacesController {
@@ -32,10 +32,10 @@ export class RacesController {
   }
 
   @Get(':raceSlug/positions')
-  async findAllPositionForRace(
+  findAllPositionForRace(
     @Param('raceSlug') raceSlug: string,
   ): Promise<PositionDto[]> {
-    return await this.positionService.findAllPositionsForRace(raceSlug);
+    return this.positionService.findAllPositionsForRace(raceSlug);
   }
 
   @Get(':id')
@@ -46,7 +46,7 @@ export class RacesController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateRaceDto: Prisma.RaceUpdateInput,
+    @Body() updateRaceDto: UpdateRaceDto,
   ): Promise<RaceDto> {
     return this.racesService.update(id, updateRaceDto);
   }
