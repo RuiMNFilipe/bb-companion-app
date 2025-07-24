@@ -1,0 +1,1271 @@
+[
+  {
+    "raceName": "Amazon",
+    "slug": "amazon",
+    "maxRerolls": 8,
+    "rerollCost": 60,
+    "hasApothecary": true,
+    "specialRules": ["Lustrian Superleague"],
+    "positions": [
+      {
+        "positionName": "Eagle Warrior Linewoman",
+        "slug": "eagle_warrior_linewoman",
+        "quantity": 16,
+        "cost": 50,
+        "MA": 6,
+        "ST": 3,
+        "AG": 3,
+        "PA": 4,
+        "AV": 8,
+        "startingSkills": [{ "skillName": "Dodge", "value": null }],
+        "primarySkillCategories": ["GENERAL"],
+        "secondarySkillCategories": ["AGILITY", "STRENGTH"]
+      },
+      {
+        "positionName": "Python Warrior Thrower",
+        "slug": "python_warrior_thrower",
+        "quantity": 2,
+        "cost": 80,
+        "MA": 6,
+        "ST": 3,
+        "AG": 3,
+        "PA": 3,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "On the Ball", "value": null },
+          { "skillName": "Pass", "value": null },
+          { "skillName": "Safe Pass", "value": null }
+        ],
+        "primarySkillCategories": ["GENERAL", "PASSING"],
+        "secondarySkillCategories": ["AGILITY", "STRENGTH"]
+      },
+      {
+        "positionName": "Piranha Warrior Blitzer",
+        "slug": "piranha_warrior_blitzer",
+        "quantity": 2,
+        "cost": 90,
+        "MA": 7,
+        "ST": 3,
+        "AG": 3,
+        "PA": 5,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "Hit and Run", "value": null },
+          { "skillName": "Jump Up", "value": null }
+        ],
+        "primarySkillCategories": ["GENERAL", "AGILITY"],
+        "secondarySkillCategories": ["STRENGTH"]
+      },
+      {
+        "positionName": "Jaguar Warrior Blocker",
+        "slug": "jaguar_warrior_blocker",
+        "quantity": 2,
+        "cost": 110,
+        "MA": 6,
+        "ST": 4,
+        "AG": 3,
+        "PA": 5,
+        "AV": 9,
+        "startingSkills": [
+          { "skillName": "Defensive", "value": null },
+          { "skillName": "Dodge", "value": null }
+        ],
+        "primarySkillCategories": ["GENERAL", "STRENGTH"],
+        "secondarySkillCategories": ["AGILITY"]
+      }
+    ]
+  },
+  {
+    "raceName": "Black Orc",
+    "slug": "black_orc",
+    "maxRerolls": 8,
+    "rerollCost": 60,
+    "hasApothecary": true,
+    "specialRules": ["Badlands Brawl", "Bribery and Corruption"],
+    "positions": [
+      {
+        "positionName": "Goblin Bruiser Linemen",
+        "slug": "goblin_bruiser_linemen",
+        "quantity": 12,
+        "cost": 45,
+        "MA": 6,
+        "ST": 2,
+        "AG": 3,
+        "PA": 4,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "Right Stuff", "value": null },
+          { "skillName": "Stunty", "value": null },
+          { "skillName": "Thick Skull", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY"],
+        "secondarySkillCategories": ["GENERAL", "PASSING", "STRENGTH"]
+      },
+      {
+        "positionName": "Black Orcs",
+        "slug": "black_orcs",
+        "quantity": 6,
+        "cost": 90,
+        "MA": 4,
+        "ST": 4,
+        "AG": 4,
+        "PA": 5,
+        "AV": 10,
+        "startingSkills": [{ "skillName": "Brawler Grab", "value": null }],
+        "primarySkillCategories": ["GENERAL", "STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "PASSING"]
+      },
+      {
+        "positionName": "Trained Troll",
+        "slug": "trained_troll",
+        "quantity": 1,
+        "cost": 115,
+        "MA": 4,
+        "ST": 5,
+        "AG": 5,
+        "PA": 5,
+        "AV": 10,
+        "startingSkills": [
+          { "skillName": "Always Hungry", "value": null },
+          { "skillName": "Loner", "value": "3+" },
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "Projectile Vomit", "value": null },
+          { "skillName": "Really Stupid", "value": null },
+          { "skillName": "Regeneration", "value": null },
+          { "skillName": "Throw Team-Mate", "value": null }
+        ],
+        "primarySkillCategories": ["STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "PASSING", "GENERAL"]
+      }
+    ]
+  },
+  {
+    "raceName": "Chaos Chosen",
+    "slug": "chaos_chosen",
+    "maxRerolls": 8,
+    "rerollCost": 60,
+    "hasApothecary": true,
+    "specialRules": [],
+    "positions": [
+      {
+        "positionName": "Beastman",
+        "slug": "beastman",
+        "quantity": 16,
+        "cost": 60,
+        "MA": 6,
+        "ST": 3,
+        "AG": 3,
+        "PA": 4,
+        "AV": 9,
+        "startingSkills": [{ "skillName": "Horns", "value": null }],
+        "primarySkillCategories": ["GENERAL", "MUTATION", "STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "PASSING"]
+      },
+      {
+        "positionName": "Chosen Blockers",
+        "slug": "chosen_blockers",
+        "quantity": 4,
+        "cost": 100,
+        "MA": 5,
+        "ST": 4,
+        "AG": 3,
+        "PA": 5,
+        "AV": 10,
+        "startingSkills": [],
+        "primarySkillCategories": ["GENERAL", "MUTATION", "STRENGTH"],
+        "secondarySkillCategories": ["AGILITY"]
+      },
+      {
+        "positionName": "Chaos Troll",
+        "slug": "chaos_troll",
+        "quantity": 1,
+        "cost": 115,
+        "MA": 4,
+        "ST": 5,
+        "AG": 5,
+        "PA": 5,
+        "AV": 10,
+        "startingSkills": [
+          { "skillName": "Always Hungry", "value": null },
+          { "skillName": "Loner", "value": "4+" },
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "Projectile Vomit", "value": null },
+          { "skillName": "Really Stupid", "value": null },
+          { "skillName": "Regeneration", "value": null },
+          { "skillName": "Throw Team-Mate", "value": null }
+        ],
+        "primarySkillCategories": ["MUTATION", "STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL"]
+      },
+      {
+        "positionName": "Chaos Ogre",
+        "slug": "chaos_ogre",
+        "quantity": 1,
+        "cost": 140,
+        "MA": 5,
+        "ST": 5,
+        "AG": 4,
+        "PA": 5,
+        "AV": 10,
+        "startingSkills": [
+          { "skillName": "Bone Head", "value": null },
+          { "skillName": "Loner", "value": "4+" },
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "Thick Skull", "value": null },
+          { "skillName": "Throw Team-Mate", "value": null }
+        ],
+        "primarySkillCategories": ["MUTATION", "STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL"]
+      },
+      {
+        "positionName": "Minotaur",
+        "slug": "minotaur",
+        "quantity": 1,
+        "cost": 150,
+        "MA": 5,
+        "ST": 5,
+        "AG": 4,
+        "PA": null,
+        "AV": 9,
+        "startingSkills": [
+          { "skillName": "Loner", "value": "4+" },
+          { "skillName": "Frenzy", "value": null },
+          { "skillName": "Horns", "value": null },
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "Thick Skull", "value": null },
+          { "skillName": "Unchannelled Fury", "value": null }
+        ],
+        "primarySkillCategories": ["MUTATION", "STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL"]
+      }
+    ],
+    "raceConstraints": [
+      {
+        "type": "ONE_OF_MANY",
+        "limit": 1,
+        "appliesToPositionSlugs": ["chaos_troll", "chaos_ogre", "minotaur"],
+        "description": "Only one Big Guy (Troll, Ogre, or Minotaur) can be taken."
+      },
+      {
+        "type": "CHOOSE_ONE_RULE",
+        "limit": 1,
+        "ruleChoices": [
+          "Undivided",
+          "Khorne",
+          "Nurgle",
+          "Slaanesh",
+          "Tzeentch"
+        ],
+        "description": "Favoured Of... Choose one alignment."
+      }
+    ]
+  },
+  {
+    "raceName": "Chaos Dwarf",
+    "slug": "chaos_dwarf",
+    "maxRerolls": 8,
+    "rerollCost": 70,
+    "hasApothecary": true,
+    "specialRules": ["Badlands Brawl", "Worlds Edge Superleague"],
+    "positions": [
+      {
+        "positionName": "Hobgoblin",
+        "slug": "hobgoblin",
+        "quantity": 16,
+        "cost": 40,
+        "MA": 6,
+        "ST": 3,
+        "AG": 3,
+        "PA": 4,
+        "AV": 8,
+        "startingSkills": [],
+        "primarySkillCategories": ["GENERAL"],
+        "secondarySkillCategories": ["AGILITY", "STRENGTH"]
+      },
+      {
+        "positionName": "Chaos Dwarf",
+        "slug": "chaos_dwarf_blocker",
+        "quantity": 6,
+        "cost": 70,
+        "MA": 4,
+        "ST": 3,
+        "AG": 4,
+        "PA": 6,
+        "AV": 10,
+        "startingSkills": [
+          { "skillName": "Block", "value": null },
+          { "skillName": "Tackle", "value": null },
+          { "skillName": "Thick Skull", "value": null }
+        ],
+        "primarySkillCategories": ["GENERAL", "STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "MUTATION"]
+      },
+      {
+        "positionName": "Bull Centaur",
+        "slug": "bull_centaur",
+        "quantity": 2,
+        "cost": 130,
+        "MA": 6,
+        "ST": 4,
+        "AG": 4,
+        "PA": 6,
+        "AV": 10,
+        "startingSkills": [
+          { "skillName": "Sprint", "value": null },
+          { "skillName": "Sure Feet", "value": null },
+          { "skillName": "Thick Skull", "value": null }
+        ],
+        "primarySkillCategories": ["GENERAL", "STRENGTH"],
+        "secondarySkillCategories": ["AGILITY"]
+      },
+      {
+        "positionName": "Enslaved Minotaur",
+        "slug": "enslaved_minotaur",
+        "quantity": 1,
+        "cost": 150,
+        "MA": 5,
+        "ST": 5,
+        "AG": 4,
+        "PA": null,
+        "AV": 9,
+        "startingSkills": [
+          { "skillName": "Animal Savagery", "value": null },
+          { "skillName": "Frenzy", "value": null },
+          { "skillName": "Loner", "value": "4+" },
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "Thick Skull", "value": null }
+        ],
+        "primarySkillCategories": ["STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL", "MUTATION"]
+      }
+    ],
+    "raceConstraints": [
+      {
+        "type": "CHOOSE_ONE_RULE",
+        "limit": 1,
+        "ruleChoices": [
+          "Undivided",
+          "Khorne",
+          "Nurgle",
+          "Slaanesh",
+          "Tzeentch"
+        ],
+        "description": "Favoured Of... Choose one alignment."
+      }
+    ]
+  },
+  {
+    "raceName": "Chaos Renegade",
+    "slug": "chaos_renegade",
+    "maxRerolls": 8,
+    "rerollCost": 70,
+    "hasApothecary": true,
+    "specialRules": [],
+    "positions": [
+      {
+        "positionName": "Lineman",
+        "slug": "lineman",
+        "quantity": 12,
+        "cost": 50,
+        "MA": 6,
+        "ST": 3,
+        "AG": 3,
+        "PA": 4,
+        "AV": 9,
+        "startingSkills": [],
+        "primarySkillCategories": ["GENERAL", "MUTATION"],
+        "secondarySkillCategories": ["AGILITY", "STRENGTH"]
+      },
+      {
+        "positionName": "Thrower",
+        "slug": "thrower",
+        "quantity": 1,
+        "cost": 75,
+        "MA": 6,
+        "ST": 3,
+        "AG": 3,
+        "PA": 3,
+        "AV": 9,
+        "startingSkills": [
+          { "skillName": "Animosity", "value": "All team-mates" },
+          { "skillName": "Pass", "value": null },
+          { "skillName": "Safe Pair of Hands", "value": null }
+        ],
+        "primarySkillCategories": ["GENERAL", "MUTATION", "PASSING"],
+        "secondarySkillCategories": ["AGILITY", "STRENGTH"]
+      },
+      {
+        "positionName": "Goblin",
+        "slug": "goblin",
+        "quantity": 1,
+        "cost": 40,
+        "MA": 6,
+        "ST": 2,
+        "AG": 3,
+        "PA": 4,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Animosity", "value": "All team-mates" },
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "Right Stuff", "value": null },
+          { "skillName": "Stunty", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY", "MUTATION"],
+        "secondarySkillCategories": ["GENERAL", "PASSING"]
+      },
+      {
+        "positionName": "Orc",
+        "slug": "orc",
+        "quantity": 1,
+        "cost": 50,
+        "MA": 5,
+        "ST": 3,
+        "AG": 3,
+        "PA": 5,
+        "AV": 10,
+        "startingSkills": [
+          { "skillName": "Animosity", "value": "All team-mates" }
+        ],
+        "primarySkillCategories": ["GENERAL", "MUTATION"],
+        "secondarySkillCategories": ["AGILITY", "STRENGTH"]
+      },
+      {
+        "positionName": "Skaven",
+        "slug": "skaven",
+        "quantity": 1,
+        "cost": 70,
+        "MA": 7,
+        "ST": 3,
+        "AG": 2,
+        "PA": 3,
+        "AV": 9,
+        "startingSkills": [
+          { "skillName": "Animosity", "value": "All team-mates" }
+        ],
+        "primarySkillCategories": ["GENERAL", "MUTATION"],
+        "secondarySkillCategories": ["AGILITY", "STRENGTH"]
+      },
+      {
+        "positionName": "Dark Elf",
+        "slug": "dark_elf",
+        "quantity": 1,
+        "cost": 75,
+        "MA": 6,
+        "ST": 3,
+        "AG": 2,
+        "PA": 3,
+        "AV": 9,
+        "startingSkills": [
+          { "skillName": "Animosity", "value": "All team-mates" }
+        ],
+        "primarySkillCategories": ["AGILITY", "MUTATION"],
+        "secondarySkillCategories": ["STRENGTH"]
+      },
+      {
+        "positionName": "Renegade Troll",
+        "slug": "renegade_troll",
+        "quantity": 1,
+        "cost": 115,
+        "MA": 4,
+        "ST": 5,
+        "AG": 5,
+        "PA": 5,
+        "AV": 10,
+        "startingSkills": [
+          { "skillName": "Always Hungry", "value": null },
+          { "skillName": "Loner", "value": "4+" },
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "Projectile Vomit", "value": null },
+          { "skillName": "Really Stupid", "value": null },
+          { "skillName": "Regeneration", "value": null },
+          { "skillName": "Throw Team-Mate", "value": null }
+        ],
+        "primarySkillCategories": ["STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL", "MUTATION"]
+      },
+      {
+        "positionName": "Renegade Ogre",
+        "slug": "renegade_ogre",
+        "quantity": 1,
+        "cost": 140,
+        "MA": 5,
+        "ST": 5,
+        "AG": 4,
+        "PA": 5,
+        "AV": 10,
+        "startingSkills": [
+          { "skillName": "Bone Head", "value": null },
+          { "skillName": "Loner", "value": "4+" },
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "Thick Skull", "value": null },
+          { "skillName": "Throw Team-Mate", "value": null }
+        ],
+        "primarySkillCategories": ["STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL", "MUTATION"]
+      },
+      {
+        "positionName": "Renegade Minotaur",
+        "slug": "renegade_minotaur",
+        "quantity": 1,
+        "cost": 150,
+        "MA": 5,
+        "ST": 5,
+        "AG": 4,
+        "PA": null,
+        "AV": 9,
+        "startingSkills": [
+          { "skillName": "Loner", "value": "4+" },
+          { "skillName": "Frenzy", "value": null },
+          { "skillName": "Horns", "value": null },
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "Thick Skull", "value": null },
+          { "skillName": "Unchannelled Fury", "value": null }
+        ],
+        "primarySkillCategories": ["STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL", "MUTATION"]
+      },
+      {
+        "positionName": "Renegade Rat Ogre",
+        "slug": "renegade_rat_ogre",
+        "quantity": 1,
+        "cost": 150,
+        "MA": 6,
+        "ST": 5,
+        "AG": 4,
+        "PA": null,
+        "AV": 9,
+        "startingSkills": [
+          { "skillName": "Animal Savagery", "value": null },
+          { "skillName": "Frenzy", "value": null },
+          { "skillName": "Loner", "value": "4+" },
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "Prehensile Tail", "value": null }
+        ],
+        "primarySkillCategories": ["STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL", "MUTATION"]
+      }
+    ],
+    "raceConstraints": [
+      {
+        "type": "ONE_OF_MANY",
+        "limit": 3,
+        "appliesToPositionSlugs": [
+          "renegade_troll",
+          "renegade_ogre",
+          "renegade_minotaur",
+          "renegade_rat_ogre"
+        ],
+        "description": "A maximum of 3 players can be taken from the Renegade Troll, Ogre, Minotaur, and Rat Ogre group."
+      },
+      {
+        "type": "CHOOSE_ONE_RULE",
+        "limit": 1,
+        "ruleChoices": [
+          "Undivided",
+          "Khorne",
+          "Nurgle",
+          "Slaanesh",
+          "Tzeentch"
+        ],
+        "description": "Favoured Of... Choose one alignment."
+      }
+    ]
+  },
+  {
+    "raceName": "Dark Elfs",
+    "slug": "dark_elfs",
+    "maxRerolls": 8,
+    "rerollCost": 50,
+    "hasApothecary": true,
+    "specialRules": ["Elven Kingdoms League"],
+    "positions": [
+      {
+        "positionName": "Lineman",
+        "slug": "lineman",
+        "quantity": 12,
+        "cost": 70,
+        "MA": 6,
+        "ST": 3,
+        "AG": 2,
+        "PA": 4,
+        "AV": 9,
+        "startingSkills": [],
+        "primarySkillCategories": ["AGILITY", "GENERAL"],
+        "secondarySkillCategories": ["STRENGTH"]
+      },
+      {
+        "positionName": "Runner",
+        "slug": "runner",
+        "quantity": 2,
+        "cost": 80,
+        "MA": 7,
+        "ST": 3,
+        "AG": 2,
+        "PA": 3,
+        "AV": 8,
+        "startingSkills": [{ "skillName": "Dump-Off", "value": null }],
+        "primarySkillCategories": ["AGILITY", "GENERAL", "PASSING"],
+        "secondarySkillCategories": ["STRENGTH"]
+      },
+      {
+        "positionName": "Blitzer",
+        "slug": "blitzer",
+        "quantity": 4,
+        "cost": 100,
+        "MA": 7,
+        "ST": 3,
+        "AG": 2,
+        "PA": 4,
+        "AV": 9,
+        "startingSkills": [{ "skillName": "Block", "value": null }],
+        "primarySkillCategories": ["AGILITY", "GENERAL", "PASSING"],
+        "secondarySkillCategories": ["STRENGTH"]
+      },
+      {
+        "positionName": "Assassin",
+        "slug": "assassin",
+        "quantity": 2,
+        "cost": 85,
+        "MA": 7,
+        "ST": 3,
+        "AG": 2,
+        "PA": 5,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Shadowing", "value": null },
+          { "skillName": "Stab", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY", "GENERAL"],
+        "secondarySkillCategories": ["PASSING", "STRENGTH"]
+      },
+      {
+        "positionName": "Witch Elf",
+        "slug": "witch_elf",
+        "quantity": 2,
+        "cost": 110,
+        "MA": 7,
+        "ST": 3,
+        "AG": 2,
+        "PA": 5,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "Frenzy", "value": null },
+          { "skillName": "Jump Up", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY", "GENERAL"],
+        "secondarySkillCategories": ["PASSING", "STRENGTH"]
+      }
+    ]
+  },
+  {
+    "raceName": "Dwarf",
+    "slug": "dwarf",
+    "maxRerolls": 8,
+    "rerollCost": 50,
+    "hasApothecary": true,
+    "specialRules": ["Old World Classic", "Worlds Edge Superleague"],
+    "positions": [
+      {
+        "positionName": "Linemen",
+        "slug": "linemen",
+        "quantity": 12,
+        "cost": 70,
+        "MA": 4,
+        "ST": 3,
+        "AG": 4,
+        "PA": 5,
+        "AV": 10,
+        "startingSkills": [
+          { "skillName": "Block", "value": null },
+          { "skillName": "Tackle", "value": null },
+          { "skillName": "Thick Skull", "value": null }
+        ],
+        "primarySkillCategories": ["GENERAL", "STRENGTH"],
+        "secondarySkillCategories": ["AGILITY"]
+      },
+      {
+        "positionName": "Runner",
+        "slug": "runner",
+        "quantity": 2,
+        "cost": 85,
+        "MA": 6,
+        "ST": 3,
+        "AG": 3,
+        "PA": 4,
+        "AV": 9,
+        "startingSkills": [
+          { "skillName": "Sure Hands", "value": null },
+          { "skillName": "Thick Skull" }
+        ],
+        "primarySkillCategories": ["GENERAL", "PASSING"],
+        "secondarySkillCategories": ["AGILITY", "STRENGTH"]
+      },
+      {
+        "positionName": "Blitzer",
+        "slug": "blitzer",
+        "quantity": 2,
+        "cost": 80,
+        "MA": 5,
+        "ST": 3,
+        "AG": 3,
+        "PA": 4,
+        "AV": 10,
+        "startingSkills": [
+          { "skillName": "Block", "value": null },
+          { "skillName": "Thick Skull", "value": null }
+        ],
+        "primarySkillCategories": ["GENERAL", "STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "PASSING"]
+      },
+      {
+        "positionName": "Troll Slayer",
+        "slug": "troll_slayer",
+        "quantity": 2,
+        "cost": 95,
+        "MA": 5,
+        "ST": 3,
+        "AG": 4,
+        "PA": null,
+        "AV": 9,
+        "startingSkills": [
+          { "skillName": "Block", "value": null },
+          { "skillName": "Dauntless", "value": null },
+          { "skillName": "Thick Skull", "value": null }
+        ],
+        "primarySkillCategories": ["GENERAL", "STRENGTH"],
+        "secondarySkillCategories": ["AGILITY"]
+      },
+      {
+        "positionName": "Deathroller",
+        "slug": "deathroller",
+        "quantity": 1,
+        "cost": 170,
+        "MA": 4,
+        "ST": 7,
+        "AG": 5,
+        "PA": null,
+        "AV": 11,
+        "startingSkills": [
+          { "skillName": "Break Tackle", "value": null },
+          { "skillName": "Dirty Player", "value": "+2" },
+          { "skillName": "Juggernaut", "value": null },
+          { "skillName": "Loner", "value": "5+" },
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "No Hands", "value": null },
+          { "skillName": "Secret Weapon", "value": null },
+          { "skillName": "Stand Firm", "value": null }
+        ],
+        "primarySkillCategories": ["STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL"]
+      }
+    ]
+  },
+  {
+    "raceName": "Elven Union",
+    "slug": "elven_union",
+    "maxRerolls": 8,
+    "rerollCost": 50,
+    "hasApothecary": true,
+    "specialRules": ["Elven Kingdoms League"],
+    "positions": [
+      {
+        "positionName": "Linemen",
+        "slug": "linemen",
+        "quantity": 12,
+        "cost": 60,
+        "MA": 6,
+        "ST": 3,
+        "AG": 2,
+        "PA": 4,
+        "AV": 8,
+        "startingSkills": [],
+        "primarySkillCategories": ["AGILITY", "GENERAL"],
+        "secondarySkillCategories": ["STRENGTH"]
+      },
+      {
+        "positionName": "Thrower",
+        "slug": "thrower",
+        "quantity": 2,
+        "cost": 75,
+        "MA": 6,
+        "ST": 3,
+        "AG": 2,
+        "PA": 2,
+        "AV": 8,
+        "startingSkills": [{ "skillName": "Pass", "value": null }],
+        "primarySkillCategories": ["AGILITY", "GENERAL", "PASSING"],
+        "secondarySkillCategories": ["STRENGTH"]
+      },
+      {
+        "positionName": "Catcher",
+        "slug": "catcher",
+        "quantity": 4,
+        "cost": 100,
+        "MA": 8,
+        "ST": 3,
+        "AG": 2,
+        "PA": 4,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Catch", "value": null },
+          { "skillName": "Nerves of Steel", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY", "GENERAL"],
+        "secondarySkillCategories": ["STRENGTH"]
+      },
+      {
+        "positionName": "Blitzers",
+        "slug": "blitzers",
+        "quantity": 2,
+        "cost": 115,
+        "MA": 7,
+        "ST": 3,
+        "AG": 2,
+        "PA": 3,
+        "AV": 9,
+        "startingSkills": [
+          { "skillName": "Block", "value": null },
+          { "skillName": "Side Step", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY", "GENERAL"],
+        "secondarySkillCategories": ["PASSING", "STRENGTH"]
+      }
+    ]
+  },
+  {
+    "raceName": "Gnome",
+    "slug": "gnome",
+    "maxRerolls": 8,
+    "rerollCost": 50,
+    "hasApothecary": true,
+    "specialRules": ["Halfling Thimble Cup"],
+    "positions": [
+      {
+        "positionName": "Gnome Lineman",
+        "slug": "gnome_lineman",
+        "quantity": 12,
+        "cost": 40,
+        "MA": 5,
+        "ST": 2,
+        "AG": 3,
+        "PA": 4,
+        "AV": 7,
+        "startingSkills": [
+          { "skillName": "Jump Up", "value": null },
+          { "skillName": "Right Stuff", "value": null },
+          { "skillName": "Stunty", "value": null },
+          { "skillName": "Wrestle", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY"],
+        "secondarySkillCategories": ["GENERAL", "STRENGTH"]
+      },
+      {
+        "positionName": "Gnome Beastmaster",
+        "slug": "gnome_beastmaster",
+        "quantity": 2,
+        "cost": 55,
+        "MA": 5,
+        "ST": 2,
+        "AG": 3,
+        "PA": 4,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Guard", "value": null },
+          { "skillName": "Jump Up", "value": null },
+          { "skillName": "Stunty", "value": null },
+          { "skillName": "Wrestle", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY"],
+        "secondarySkillCategories": ["GENERAL", "STRENGTH"]
+      },
+      {
+        "positionName": "Gnome Illusionist",
+        "slug": "gnome_illusionist",
+        "quantity": 2,
+        "cost": 50,
+        "MA": 5,
+        "ST": 2,
+        "AG": 3,
+        "PA": 3,
+        "AV": 7,
+        "startingSkills": [
+          { "skillName": "Jump Up", "value": null },
+          { "skillName": "Stunty", "value": null },
+          { "skillName": "Trickster", "value": null },
+          { "skillName": "Wrestle", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY", "PASSING"],
+        "secondarySkillCategories": ["GENERAL"]
+      },
+      {
+        "positionName": "Woodland Fox",
+        "slug": "woodland_fox",
+        "quantity": 2,
+        "cost": 50,
+        "MA": 7,
+        "ST": 2,
+        "AG": 2,
+        "PA": null,
+        "AV": 6,
+        "startingSkills": [
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "My Ball", "value": null },
+          { "skillName": "Side Step", "value": null },
+          { "skillName": "Stunty", "value": null }
+        ],
+        "primarySkillCategories": [],
+        "secondarySkillCategories": ["AGILITY"]
+      },
+      {
+        "positionName": "Altern Forest Treeman",
+        "slug": "altern_forest_treeman",
+        "quantity": 2,
+        "cost": 120,
+        "MA": 2,
+        "ST": 6,
+        "AG": 5,
+        "PA": 5,
+        "AV": 11,
+        "startingSkills": [
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "Stand Firm", "value": null },
+          { "skillName": "Strong Arm", "value": null },
+          { "skillName": "Take Root", "value": null },
+          { "skillName": "Thick Skull", "value": null },
+          { "skillName": "Throw Team-Mate", "value": null },
+          { "skillName": "Timmm-ber!", "value": null }
+        ],
+        "primarySkillCategories": ["STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL", "PASSING"]
+      }
+    ]
+  },
+  {
+    "raceName": "Goblin",
+    "slug": "goblin",
+    "maxRerolls": 8,
+    "rerollCost": 60,
+    "hasApothecary": true,
+    "specialRules": [
+      "Badlands Brawl",
+      "Bribery and Corruption",
+      "Underworld Challenge"
+    ],
+    "positions": [
+      {
+        "positionName": "Goblin",
+        "slug": "goblin",
+        "quantity": 12,
+        "cost": 40,
+        "MA": 6,
+        "ST": 2,
+        "AG": 3,
+        "PA": 4,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "Right Stuff", "value": null },
+          { "skillName": "Stunty", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY"],
+        "secondarySkillCategories": ["GENERAL", "PASSING", "STRENGTH"]
+      },
+      {
+        "positionName": "Bomma",
+        "slug": "bomma",
+        "quantity": 1,
+        "cost": 45,
+        "MA": 6,
+        "ST": 2,
+        "AG": 3,
+        "PA": 4,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Bombardier", "value": null },
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "Secret Weapon", "value": null },
+          { "skillName": "Stunty", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY"],
+        "secondarySkillCategories": ["GENERAL", "PASSING", "STRENGTH"]
+      },
+      {
+        "positionName": "Looney",
+        "slug": "looney",
+        "quantity": 1,
+        "cost": 40,
+        "MA": 6,
+        "ST": 2,
+        "AG": 3,
+        "PA": null,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Chainsaw", "value": null },
+          { "skillName": "Secret Weapon", "value": null },
+          { "skillName": "Stunty", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY"],
+        "secondarySkillCategories": ["GENERAL", "STRENGTH"]
+      },
+      {
+        "positionName": "Fanatic",
+        "slug": "fanatic",
+        "quantity": 1,
+        "cost": 70,
+        "MA": 3,
+        "ST": 7,
+        "AG": 3,
+        "PA": null,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Ball & Chain", "value": null },
+          { "skillName": "No Hands", "value": null },
+          { "skillName": "Secret Weapon", "value": null },
+          { "skillName": "Stunty", "value": null }
+        ],
+        "primarySkillCategories": ["STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL"]
+      },
+      {
+        "positionName": "Pogoer",
+        "slug": "pogoer",
+        "quantity": 1,
+        "cost": 75,
+        "MA": 7,
+        "ST": 2,
+        "AG": 3,
+        "PA": 5,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "Pogo Stick", "value": null },
+          { "skillName": "Stunty", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY"],
+        "secondarySkillCategories": ["STRENGTH", "GENERAL", "PASSING"]
+      },
+      {
+        "positionName": "Ooligan",
+        "slug": "ooligan",
+        "quantity": 1,
+        "cost": 65,
+        "MA": 6,
+        "ST": 2,
+        "AG": 3,
+        "PA": 6,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Dirty Player", "value": "+1" },
+          { "skillName": "Disturbing Presence", "value": null },
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "Right Stuff", "value": null },
+          { "skillName": "Stunty", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY"],
+        "secondarySkillCategories": ["STRENGTH", "GENERAL", "PASSING"]
+      },
+      {
+        "positionName": "Doom Diver",
+        "slug": "doom_diver",
+        "quantity": 1,
+        "cost": 60,
+        "MA": 6,
+        "ST": 2,
+        "AG": 3,
+        "PA": 6,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Right Stuff", "value": null },
+          { "skillName": "Stunty", "value": null },
+          { "skillName": "Swoop", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY"],
+        "secondarySkillCategories": ["STRENGTH", "GENERAL", "PASSING"]
+      },
+      {
+        "positionName": "Trained Troll",
+        "slug": "trained_troll",
+        "quantity": 2,
+        "cost": 115,
+        "MA": 4,
+        "ST": 5,
+        "AG": 5,
+        "PA": 5,
+        "AV": 10,
+        "startingSkills": [
+          { "skillName": "Always Hungry", "value": null },
+          { "skillName": "Loner", "value": "3+" },
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "Projectile Vomit", "value": null },
+          { "skillName": "Really Stupid", "value": null },
+          { "skillName": "Regeneration", "value": null },
+          { "skillName": "Throw Team-Mate", "value": null }
+        ],
+        "primarySkillCategories": ["STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL", "PASSING"]
+      }
+    ]
+  },
+  {
+    "raceName": "Halfling",
+    "slug": "halfling",
+    "maxRerolls": 8,
+    "rerollCost": 60,
+    "hasApothecary": true,
+    "specialRules": ["Halfling Thimble Cup", "Old World Classic"],
+    "positions": [
+      {
+        "positionName": "Hopeful",
+        "slug": "hopeful",
+        "quantity": 16,
+        "cost": 30,
+        "MA": 5,
+        "ST": 2,
+        "AG": 3,
+        "PA": 4,
+        "AV": 7,
+        "startingSkills": [
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "Right Stuff", "value": null },
+          { "skillName": "Stunty", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY"],
+        "secondarySkillCategories": ["GENERAL", "STRENGTH"]
+      },
+      {
+        "positionName": "Hefty",
+        "slug": "hefty",
+        "quantity": 2,
+        "cost": 50,
+        "MA": 5,
+        "ST": 2,
+        "AG": 3,
+        "PA": 3,
+        "AV": 8,
+        "startingSkills": [
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "Fend", "value": null },
+          { "skillName": "Stunty", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY", "PASSING"],
+        "secondarySkillCategories": ["GENERAL", "STRENGTH"]
+      },
+      {
+        "positionName": "Catcher",
+        "slug": "catcher",
+        "quantity": 2,
+        "cost": 55,
+        "MA": 5,
+        "ST": 2,
+        "AG": 3,
+        "PA": 5,
+        "AV": 7,
+        "startingSkills": [
+          { "skillName": "Catch", "value": null },
+          { "skillName": "Dodge", "value": null },
+          { "skillName": "Right Stuff", "value": null },
+          { "skillName": "Sprint", "value": null },
+          { "skillName": "Stunty", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY"],
+        "secondarySkillCategories": ["GENERAL", "STRENGTH"]
+      },
+      {
+        "positionName": "Altern Forest Treeman",
+        "slug": "altern_forest_treeman",
+        "quantity": 2,
+        "cost": 120,
+        "MA": 2,
+        "ST": 6,
+        "AG": 5,
+        "PA": 5,
+        "AV": 11,
+        "startingSkills": [
+          { "skillName": "Mighty Blow", "value": "+1" },
+          { "skillName": "Stand Firm", "value": null },
+          { "skillName": "Strong Arm", "value": null },
+          { "skillName": "Take Root", "value": null },
+          { "skillName": "Thick Skull", "value": null },
+          { "skillName": "Throw Team-Mate", "value": null },
+          { "skillName": "Timmm-ber!", "value": null }
+        ],
+        "primarySkillCategories": ["STRENGTH"],
+        "secondarySkillCategories": ["AGILITY", "GENERAL"]
+      }
+    ]
+  },
+  {
+    "raceName": "High Elf",
+    "slug": "high_elf",
+    "maxRerolls": 8,
+    "rerollCost": 50,
+    "hasApothecary": true,
+    "specialRules": ["Elven Kingdoms League"],
+    "positions": [
+      {
+        "positionName": "Lineman",
+        "slug": "lineman",
+        "quantity": 16,
+        "cost": 70,
+        "MA": 6,
+        "ST": 3,
+        "AG": 2,
+        "PA": 4,
+        "AV": 9,
+        "startingSkills": [],
+        "primarySkillCategories": ["AGILITY", "GENERAL"],
+        "secondarySkillCategories": ["PASSING", "STRENGTH"]
+      },
+      {
+        "positionName": "Thrower",
+        "slug": "thrower",
+        "quantity": 2,
+        "cost": 100,
+        "MA": 6,
+        "ST": 3,
+        "AG": 2,
+        "PA": 2,
+        "AV": 9,
+        "startingSkills": [
+          { "skillName": "Cloud Burster", "value": null },
+          { "skillName": "Pass", "value": null },
+          { "skillName": "Safe Pass", "value": null }
+        ],
+        "primarySkillCategories": ["AGILITY", "GENERAL", "PASSING"],
+        "secondarySkillCategories": ["STRENGTH"]
+      },
+      {
+        "positionName": "Catcher",
+        "slug": "catcher",
+        "quantity": 4,
+        "cost": 90,
+        "MA": 8,
+        "ST": 3,
+        "AG": 2,
+        "PA": 5,
+        "AV": 8,
+        "startingSkills": [{ "skillName": "Catch", "value": null }],
+        "primarySkillCategories": ["AGILITY", "GENERAL"],
+        "secondarySkillCategories": ["STRENGTH"]
+      },
+      {
+        "positionName": "Blitzer",
+        "slug": "blitzer",
+        "quantity": 2,
+        "cost": 100,
+        "MA": 7,
+        "ST": 3,
+        "AG": 2,
+        "PA": 4,
+        "AV": 9,
+        "startingSkills": [{ "skillName": "Block", "value": null }],
+        "primarySkillCategories": ["AGILITY", "GENERAL"],
+        "secondarySkillCategories": ["PASSING", "STRENGTH"]
+      }
+    ]
+  }
+]

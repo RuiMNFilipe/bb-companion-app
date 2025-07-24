@@ -7,6 +7,7 @@ import * as winston from 'winston';
 import { utilities as nestWinstonModuleUtilities } from 'nest-winston';
 import { StaticDataModule } from './static-data/static-data.module';
 import { DatabaseModule } from './database/database.module';
+import { TestModule } from './test/test.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { DatabaseModule } from './database/database.module';
     }),
     StaticDataModule,
     DatabaseModule,
+    TestModule,
   ],
   controllers: [AppController],
   providers: [AppService],
