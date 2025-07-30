@@ -1,4 +1,5 @@
-import { Expose } from 'class-transformer';
+import { JsonValue } from '@prisma/client/runtime/library';
+import { Expose, Type } from 'class-transformer';
 import {
   IsArray,
   IsInt,
@@ -8,7 +9,20 @@ import {
   IsString,
   IsUUID,
   Min,
+  ValidateNested,
 } from 'class-validator';
+
+export class SkillEntryDto {
+  @Expose()
+  @IsString()
+  @IsNotEmpty()
+  skillName: string;
+
+  @Expose()
+  @IsOptional()
+  @IsString()
+  value: string | null;
+}
 
 export class PositionDto {
   @Expose()
@@ -71,7 +85,7 @@ export class PositionDto {
 
   @Expose()
   @IsArray()
-  @IsString({ each: true })
-  @IsNotEmpty({ each: true })
-  startingSkills: string[];
+  @ValidateNested({ each: true })
+  @Type(() => SkillEntryDto)
+  startingSkills: JsonValue;
 }
