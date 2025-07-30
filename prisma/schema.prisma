@@ -7,47 +7,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Race {
-  id                String   @id @default(uuid())
-  slug              String   @unique
-  name              String   @unique
-  description       String?
-  rerollCost        Int      @map("reroll_cost")
-  apothecaryAllowed Boolean  @map("apothecary_allowed")
-  pros              String[] @default([])
-  cons              String[] @default([])
+model Coach {
+  id       String  @id @default(uuid())
+  username String  @unique
+  password String
+  email    String  @unique
+  active   Boolean
 
-  // TODO: Add positions, teams and leagues
-  position Position[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+  lastLogin DateTime
+
+  teams Team[]
 }
 
-model Position {
-  id             String   @id @default(uuid())
-  raceId         String   @map("race_id")
-  name           String
-  cost           Int
-  movement       Int
-  strength       Int
-  agility        Int
-  passing        Int?
-  armorValue     Int      @map("armor_value")
-  maxPerTeam     Int      @map("max_per_team")
-  startingSkills String[] @map("starting_skills")
+model Team {
+  id               String  @id @default(uuid())
+  name             String
+  teamValue        Int
+  treasury         Int
+  rerolls          Int
+  dedicatedFans    Int     @map("dedicated_fans")
+  assistantCoaches Int     @map("assistant_coaches")
+  cheerleaders     Int
+  hasApothecary    Boolean @map("has_apothecary")
+  isExperienced    Boolean @map("is_experienced")
+  isSuspended      Boolean @map("is_suspended")
 
-  race Race @relation(fields: [raceId], references: [id])
-  // TODO: Add players relationship
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
 
-  @@unique([raceId, name])
-}
-
-model Skill {
-  id            String  @id @default(uuid())
-  name          String  @unique
-  slug          String  @unique
-  description   String?
-  category      String
-  internalNotes String?
-
-  // TODO
-  // players PlayerSkill[]
+  coach   Coach  @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  coachId String @map("coach_id")
 }
