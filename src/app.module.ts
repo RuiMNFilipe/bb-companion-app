@@ -8,7 +8,7 @@ import { utilities as nestWinstonModuleUtilities } from 'nest-winston';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { CoachesModule } from './coaches/coaches.module';
-import { PrismaService } from './prisma/prisma.service';
+import { DatabaseService } from './database/database.service';
 
 @Module({
   imports: [
@@ -35,7 +35,7 @@ import { PrismaService } from './prisma/prisma.service';
     CoachesModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
-  exports: [PrismaService]
+  providers: [AppService, DatabaseService],
+  exports: [DatabaseService]
 })
 export class AppModule {}
