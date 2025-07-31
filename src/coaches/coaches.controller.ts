@@ -9,10 +9,9 @@ export class CoachesController {
     // @UseInterceptors(LoggingInterceptor)
     @Get()
     getAll(){
-        console.log('coach getAll')
         return this.coachesService.findAll();
     }
-    @Get(':id')
+    @Get('id/:id')
     getById(@Param('id', ParseUUIDPipe) id: UUID) { 
         return this.coachesService.findOneById(id);
     }
