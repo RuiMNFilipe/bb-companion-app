@@ -1,9 +1,8 @@
-# .github/workflows/branch-protection.yml
 name: 🛡️ Branch Protection
 
 on:
   pull_request:
-    branches:
+    branches: 
       - main
     types: [opened, synchronize, reopened, edited]
 
@@ -11,7 +10,7 @@ jobs:
   validate-source-branch:
     name: Validate PR Source Branch
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Check Branch Protection Rules
         id: branch-check
@@ -22,28 +21,28 @@ jobs:
           echo "👤 Author: ${{ github.actor }}"
           echo "🔗 PR: ${{ github.event.pull_request.html_url }}"
           echo ""
-
+          
           SOURCE_BRANCH="${{ github.head_ref }}"
           TARGET_BRANCH="${{ github.base_ref }}"
-
+          
           # Only check if target is main branch
           if [[ "$TARGET_BRANCH" != "main" ]]; then
             echo "✅ Target is not main branch - no restrictions apply"
             exit 0
           fi
-
+          
           echo "🛡️  Checking main branch protection rules..."
-
+          
           # Define allowed source branch patterns
           ALLOWED_PATTERNS=(
             "^develop$"
             "^hotfix/.+"
             "^release/.+"
           )
-
+          
           # Check if source branch matches any allowed pattern
           BRANCH_ALLOWED=false
-
+          
           for pattern in "${ALLOWED_PATTERNS[@]}"; do
             if [[ "$SOURCE_BRANCH" =~ $pattern ]]; then
               BRANCH_ALLOWED=true
@@ -51,7 +50,7 @@ jobs:
               break
             fi
           done
-
+          
           if [[ "$BRANCH_ALLOWED" == "true" ]]; then
             echo ""
             echo "🎉 SUCCESS: PR is authorized!"
@@ -94,28 +93,28 @@ jobs:
         with:
           script: |
             const comment = `## ✅ Branch Protection Check Passed
-
+            
             **Source Branch:** \`${{ github.head_ref }}\`  
             **Target Branch:** \`${{ github.base_ref }}\`  
             **Status:** 🎉 **AUTHORIZED**
-
+            
             This PR follows our branching policy and can proceed with the review process.
-
+            
             ---
             *Automated check by Branch Protection workflow*`;
-
+            
             // Check if we already commented
             const { data: comments } = await github.rest.issues.listComments({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
             });
-
+            
             const botComment = comments.find(comment => 
               comment.user.type === 'Bot' && 
               comment.body.includes('Branch Protection Check')
             );
-
+            
             if (!botComment) {
               await github.rest.issues.createComment({
                 issue_number: context.issue.number,
@@ -131,36 +130,36 @@ jobs:
         with:
           script: |
             const comment = `## 🚫 Branch Protection Policy Violation
-
+            
             **Source Branch:** \`${{ github.head_ref }}\`  
             **Target Branch:** \`${{ github.base_ref }}\`  
             **Status:** ❌ **UNAUTHORIZED**
-
+            
             ### 📋 Allowed Source Branches for \`main\`:
             - \`develop\` - Regular releases and feature integration
             - \`hotfix/*\` - Critical production fixes only  
             - \`release/*\` - Release preparation and versioning
-
+            
             ### 🔄 Correct Workflow:
             \`\`\`
             feature/your-feature → develop → main
             bugfix/your-fix     → develop → main  
             hotfix/urgent-fix   → main (emergency only)
             \`\`\`
-
+            
             ### 💡 How to Fix This:
             1. **Close this PR** ❌
             2. **Create a new PR:** \`${{ github.head_ref }} → develop\` ✅
             3. **After merge to develop:** Create \`develop → main\` PR for release 🚀
-
+            
             ### ❓ Questions?
             - Check our [Contributing Guidelines](../../blob/main/CONTRIBUTING.md)
             - Ask in team chat for clarification
-
+            
             ---
             *This policy ensures code quality and proper release management.*  
             *Automated check by Branch Protection workflow*`;
-
+            
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -173,38 +172,38 @@ jobs:
     name: Code Quality Checks
     runs-on: ubuntu-latest
     if: github.base_ref == 'main'
-
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+        
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+          
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'pnpm'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 8
-
+          
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
+        
       - name: Run linting (Backend)
         run: pnpm --filter backend lint
         continue-on-error: false
-
-      - name: Run tests (Backend)
+        
+      - name: Run tests (Backend)  
         run: pnpm --filter backend test
         continue-on-error: false
-
+        
       # Add frontend checks when you have a frontend
       # - name: Run linting (Frontend)
       #   run: pnpm --filter frontend lint
       #   continue-on-error: false
-
+      
       - name: Check build (Backend)
         run: pnpm --filter backend build
         continue-on-error: false
