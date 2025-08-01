@@ -2,7 +2,6 @@ import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/co
 import { CoachesService } from 'src/coaches/coaches.service';
 import { compare } from 'bcrypt-ts';
 import { DatabaseService } from 'src/database/database.service';
-import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class AuthService {
