@@ -1,16 +1,14 @@
-# .github/workflows/branch-protection.yml
 name: 🛡️ Branch Protection
 
 on:
   pull_request:
-    branches:
-      - main
-    types: [opened, synchronize, reopened, edited]
+    branches: [main]
 
 jobs:
   validate-source-branch:
     name: Validate PR Source Branch
     runs-on: ubuntu-latest
+
 
     steps:
       - name: Check Branch Protection Rules
@@ -74,10 +72,12 @@ jobs:
             echo "   feature/* → develop → main"
             echo "   bugfix/*  → develop → main"
             echo "   hotfix/*  → main (emergency only)"
+
             echo ""
             echo "💡 NEXT STEPS:"
             echo "   1. Close this PR"
             echo "   2. Create PR: $SOURCE_BRANCH → develop"
+
             echo "   3. After merge, create: develop → main"
             echo ""
             
@@ -208,3 +208,4 @@ jobs:
       - name: Check build (Backend)
         run: pnpm --filter backend build
         continue-on-error: false
+
