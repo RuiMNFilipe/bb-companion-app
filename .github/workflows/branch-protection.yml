@@ -6,6 +6,12 @@ on:
       - main
     types: [opened, synchronize, reopened, edited]
 
+# Add permissions for GitHub Actions to comment on PRs
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 jobs:
   validate-source-branch:
     name: Validate PR Source Branch
