@@ -47,7 +47,7 @@ export class TeamsService {
 
     if (!team) {
       throw new NotFoundException(
-        `Team with ID "${teamId} not found or not accessible."`,
+        `Team with ID "${teamId}" not found or not accessible.`,
       );
     }
 

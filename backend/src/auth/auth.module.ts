@@ -9,7 +9,7 @@ import { jwtConstants } from './passport/jwt.constants';
 import { AuthService } from './auth.service';
 import { CoachesService } from 'src/coaches/coaches.service';
 import { LocalStrategy } from './passport/local.strategy';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER } from '@nestjs/core';
 import { JwtExpiredFilter } from './passport/jwtExpired.filter';
 
 @Module({
@@ -30,7 +30,7 @@ import { JwtExpiredFilter } from './passport/jwtExpired.filter';
     LocalStrategy,
     JwtStrategy,
     {
-      provide: APP_INTERCEPTOR,
+      provide: APP_FILTER,
       useClass: JwtExpiredFilter,
     },
   ],
