@@ -1,0 +1,16 @@
+{
+  "name": "bb-companion-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:backend": "pnpm --filter backend start:dev",
+    "build:backend": "pnpm --filter backend build",
+    "start:backend": "pnpm --filter backend start",
+    "test:backend": "pnpm --filter backend test",
+    "dev:frontend": "pnpm --filter frontend start",
+    "dev": "concurrently \"pnpm dev:backend\" \"pnpm dev:frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}
