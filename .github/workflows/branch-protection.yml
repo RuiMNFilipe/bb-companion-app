@@ -1,3 +1,4 @@
+# .github/workflows/branch-protection.yml
 name: 🛡️ Branch Protection
 
 on:
@@ -18,6 +19,23 @@ jobs:
           echo ""
           
           SOURCE_BRANCH="${{ github.head_ref }}"
+          TARGET_BRANCH="${{ github.base_ref }}"
+          
+          # Only enforce rules for PRs targeting main
+          if [[ "$TARGET_BRANCH" != "main" ]]; then
+            echo "✅ Target is not main branch ($TARGET_BRANCH) - no restrictions apply"
+            echo "🎉 This PR can proceed normally"
+            exit 0
+          fi
+          
+          # Only enforce rules for PRs targeting main
+          if [[ "$TARGET_BRANCH" != "main" ]]; then
+            echo "✅ Target is not main branch ($TARGET_BRANCH) - no restrictions apply"
+            echo "🎉 This PR can proceed normally"
+            exit 0
+          fi
+          
+          echo "🛡️ Checking main branch protection rules..."
           
           # Define allowed patterns
           if [[ "$SOURCE_BRANCH" == "develop" ]] || 
