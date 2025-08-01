@@ -9,56 +9,204 @@ jobs:
   validate-source-branch:
     name: Validate PR Source Branch
     runs-on: ubuntu-latest
-    
+
+
     steps:
       - name: Check Branch Protection Rules
+        id: branch-check
         run: |
-          echo "🔍 Validating PR source branch..."
-          echo "📍 Source: ${{ github.head_ref }}"
-          echo "🎯 Target: ${{ github.base_ref }}"
+          echo "🔍 Validating PR details..."
+          echo "📍 Source branch: ${{ github.head_ref }}"
+          echo "🎯 Target branch: ${{ github.base_ref }}"
+          echo "👤 Author: ${{ github.actor }}"
+          echo "🔗 PR: ${{ github.event.pull_request.html_url }}"
           echo ""
-          
+
           SOURCE_BRANCH="${{ github.head_ref }}"
           TARGET_BRANCH="${{ github.base_ref }}"
-          
-          # Only enforce rules for PRs targeting main
+
+          # Only check if target is main branch
           if [[ "$TARGET_BRANCH" != "main" ]]; then
-            echo "✅ Target is not main branch ($TARGET_BRANCH) - no restrictions apply"
-            echo "🎉 This PR can proceed normally"
+            echo "✅ Target is not main branch - no restrictions apply"
             exit 0
           fi
-          
-          # Only enforce rules for PRs targeting main
-          if [[ "$TARGET_BRANCH" != "main" ]]; then
-            echo "✅ Target is not main branch ($TARGET_BRANCH) - no restrictions apply"
-            echo "🎉 This PR can proceed normally"
-            exit 0
-          fi
-          
-          echo "🛡️ Checking main branch protection rules..."
-          
-          # Define allowed patterns
-          if [[ "$SOURCE_BRANCH" == "develop" ]] || 
-             [[ "$SOURCE_BRANCH" =~ ^hotfix/.+ ]] || 
-             [[ "$SOURCE_BRANCH" =~ ^release/.+ ]]; then
-            echo "✅ SUCCESS: Branch '$SOURCE_BRANCH' is authorized to merge to main"
-            echo "🎉 This PR follows our branching policy and can proceed"
+
+          echo "🛡️  Checking main branch protection rules..."
+
+          # Define allowed source branch patterns
+          ALLOWED_PATTERNS=(
+            "^develop$"
+            "^hotfix/.+"
+            "^release/.+"
+          )
+
+          # Check if source branch matches any allowed pattern
+          BRANCH_ALLOWED=false
+
+          for pattern in "${ALLOWED_PATTERNS[@]}"; do
+            if [[ "$SOURCE_BRANCH" =~ $pattern ]]; then
+              BRANCH_ALLOWED=true
+              echo "✅ Branch '$SOURCE_BRANCH' matches allowed pattern: $pattern"
+              break
+            fi
+          done
+
+          if [[ "$BRANCH_ALLOWED" == "true" ]]; then
+            echo ""
+            echo "🎉 SUCCESS: PR is authorized!"
+            echo "✨ Branch '$SOURCE_BRANCH' can create PRs to main"
+            
+            # Set output for success message
+            echo "status=success" >> $GITHUB_OUTPUT
+            echo "message=✅ Authorized branch: $SOURCE_BRANCH" >> $GITHUB_OUTPUT
           else
-            echo "🚫 POLICY VIOLATION: Branch '$SOURCE_BRANCH' cannot merge to main"
+            echo ""
+            echo "🚫 POLICY VIOLATION DETECTED!"
+            echo "❌ Branch '$SOURCE_BRANCH' is NOT authorized to create PRs to main"
             echo ""
             echo "📋 ALLOWED SOURCE BRANCHES:"
             echo "   • develop           (regular releases)"
-            echo "   • hotfix/*          (critical fixes)"  
+            echo "   • hotfix/*          (critical production fixes)"
             echo "   • release/*         (release preparation)"
             echo ""
             echo "🔄 CORRECT WORKFLOW:"
-            echo "   $SOURCE_BRANCH → develop → main"
+            echo "   feature/* → develop → main"
+            echo "   bugfix/*  → develop → main"
+            echo "   hotfix/*  → main (emergency only)"
+
             echo ""
             echo "💡 NEXT STEPS:"
             echo "   1. Close this PR"
             echo "   2. Create PR: $SOURCE_BRANCH → develop"
-            echo "   3. After merge to develop, create: develop → main"
+
+            echo "   3. After merge, create: develop → main"
             echo ""
-            echo "This check failed to enforce our branching policy."
+            
+            # Set output for failure
+            echo "status=failure" >> $GITHUB_OUTPUT
+            echo "message=❌ Unauthorized branch: $SOURCE_BRANCH" >> $GITHUB_OUTPUT
+            
             exit 1
           fi
+
+      - name: Add Success Comment
+        if: steps.branch-check.outputs.status == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `## ✅ Branch Protection Check Passed
+
+            **Source Branch:** \`${{ github.head_ref }}\`  
+            **Target Branch:** \`${{ github.base_ref }}\`  
+            **Status:** 🎉 **AUTHORIZED**
+
+            This PR follows our branching policy and can proceed with the review process.
+
+            ---
+            *Automated check by Branch Protection workflow*`;
+
+            // Check if we already commented
+            const { data: comments } = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('Branch Protection Check')
+            );
+
+            if (!botComment) {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+
+      - name: Add Failure Comment
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `## 🚫 Branch Protection Policy Violation
+
+            **Source Branch:** \`${{ github.head_ref }}\`  
+            **Target Branch:** \`${{ github.base_ref }}\`  
+            **Status:** ❌ **UNAUTHORIZED**
+
+            ### 📋 Allowed Source Branches for \`main\`:
+            - \`develop\` - Regular releases and feature integration
+            - \`hotfix/*\` - Critical production fixes only  
+            - \`release/*\` - Release preparation and versioning
+
+            ### 🔄 Correct Workflow:
+            \`\`\`
+            feature/your-feature → develop → main
+            bugfix/your-fix     → develop → main  
+            hotfix/urgent-fix   → main (emergency only)
+            \`\`\`
+
+            ### 💡 How to Fix This:
+            1. **Close this PR** ❌
+            2. **Create a new PR:** \`${{ github.head_ref }} → develop\` ✅
+            3. **After merge to develop:** Create \`develop → main\` PR for release 🚀
+
+            ### ❓ Questions?
+            - Check our [Contributing Guidelines](../../blob/main/CONTRIBUTING.md)
+            - Ask in team chat for clarification
+
+            ---
+            *This policy ensures code quality and proper release management.*  
+            *Automated check by Branch Protection workflow*`;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  # Optional: Also run basic code quality checks
+  code-quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    if: github.base_ref == 'main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run linting (Backend)
+        run: pnpm --filter backend lint
+        continue-on-error: false
+
+      - name: Run tests (Backend)
+        run: pnpm --filter backend test
+        continue-on-error: false
+
+      # Add frontend checks when you have a frontend
+      # - name: Run linting (Frontend)
+      #   run: pnpm --filter frontend lint
+      #   continue-on-error: false
+
+      - name: Check build (Backend)
+        run: pnpm --filter backend build
+        continue-on-error: false
+
