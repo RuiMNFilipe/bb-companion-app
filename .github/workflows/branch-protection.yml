@@ -24,41 +24,29 @@ jobs:
 
           SOURCE_BRANCH="${{ github.head_ref }}"
           TARGET_BRANCH="${{ github.base_ref }}"
-
-          # Only check if target is main branch
+          
+          # Only enforce rules for PRs targeting main
           if [[ "$TARGET_BRANCH" != "main" ]]; then
-            echo "✅ Target is not main branch - no restrictions apply"
+            echo "✅ Target is not main branch ($TARGET_BRANCH) - no restrictions apply"
+            echo "🎉 This PR can proceed normally"
             exit 0
           fi
-
-          echo "🛡️  Checking main branch protection rules..."
-
-          # Define allowed source branch patterns
-          ALLOWED_PATTERNS=(
-            "^develop$"
-            "^hotfix/.+"
-            "^release/.+"
-          )
-
-          # Check if source branch matches any allowed pattern
-          BRANCH_ALLOWED=false
-
-          for pattern in "${ALLOWED_PATTERNS[@]}"; do
-            if [[ "$SOURCE_BRANCH" =~ $pattern ]]; then
-              BRANCH_ALLOWED=true
-              echo "✅ Branch '$SOURCE_BRANCH' matches allowed pattern: $pattern"
-              break
-            fi
-          done
-
-          if [[ "$BRANCH_ALLOWED" == "true" ]]; then
-            echo ""
-            echo "🎉 SUCCESS: PR is authorized!"
-            echo "✨ Branch '$SOURCE_BRANCH' can create PRs to main"
-            
-            # Set output for success message
-            echo "status=success" >> $GITHUB_OUTPUT
-            echo "message=✅ Authorized branch: $SOURCE_BRANCH" >> $GITHUB_OUTPUT
+          
+          # Only enforce rules for PRs targeting main
+          if [[ "$TARGET_BRANCH" != "main" ]]; then
+            echo "✅ Target is not main branch ($TARGET_BRANCH) - no restrictions apply"
+            echo "🎉 This PR can proceed normally"
+            exit 0
+          fi
+          
+          echo "🛡️ Checking main branch protection rules..."
+          
+          # Define allowed patterns
+          if [[ "$SOURCE_BRANCH" == "develop" ]] || 
+             [[ "$SOURCE_BRANCH" =~ ^hotfix/.+ ]] || 
+             [[ "$SOURCE_BRANCH" =~ ^release/.+ ]]; then
+            echo "✅ SUCCESS: Branch '$SOURCE_BRANCH' is authorized to merge to main"
+            echo "🎉 This PR follows our branching policy and can proceed"
           else
             echo ""
             echo "🚫 POLICY VIOLATION DETECTED!"
