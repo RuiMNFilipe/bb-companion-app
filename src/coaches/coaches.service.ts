@@ -2,7 +2,6 @@ import { Injectable, NotImplementedException } from '@nestjs/common';
 import { Coach as PrismaCoach } from '@prisma/client';
 import { UUID } from 'crypto';
 import { DatabaseService } from 'src/database/database.service';
-import winston, { exceptions } from 'winston';
 
 export type Coach = PrismaCoach;
 
@@ -20,7 +19,7 @@ export class CoachesService {
     const coach = this.db.coach.findUnique({
       where: { username: username },
     });
-
+    
     return coach;
   }
 

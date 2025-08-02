@@ -8,35 +8,236 @@ datasource db {
 }
 
 model Coach {
-  id       String  @id @default(uuid())
-  username String  @unique
-  password String
-  email    String  @unique
-  active   Boolean
+  id        String   @id @default(uuid()) @db.Uuid
+  username String   @unique
+  password  String
+  email     String   @unique
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lastLogin DateTime?
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt() @map("updated_at")
-  lastLogin DateTime @map("last_login")
-
+  // Relations
   teams Team[]
 }
 
 model Team {
-  id               String  @id @default(uuid())
+  id                 String   @id @default(uuid()) @db.Uuid
+  coach_id           String   @db.Uuid
+  roster_id          String   @db.Uuid
+  name               String
+  win                Int      @default(0) @db.Integer
+  loss               Int      @default(0) @db.Integer
+  ties               Int      @default(0) @db.Integer
+  delta              Int      @default(0) @db.Integer
+  team_value         Int      @default(0) @db.Integer
+  treasury           Int      @default(0) @db.Integer
+  rerolls            Int      @default(0) @db.Integer
+  dedicated_fans     Int      @default(0) @db.Integer
+  assistant_coaches  Int      @default(0) @db.Integer
+  cheerleaders       Int      @default(0) @db.Integer
+  has_apothecary     Boolean  @default(false)
+  is_experienced     Boolean  @default(false)
+  is_suspended       Boolean  @default(false)
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  // Relations
+  coach      Coach    @relation(fields: [coach_id], references: [id])
+  roster     Roster   @relation(fields: [roster_id], references: [id])
+  players    Player[]
+  homeMatches Match[] @relation("HomeTeam")
+  awayMatches Match[] @relation("AwayTeam")
+
+  @@map("team")
+}
+
+model Roster {
+  id               String   @id @default(uuid()) @db.Uuid
   name             String
-  teamValue        Int
-  treasury         Int
-  rerolls          Int
-  dedicatedFans    Int     @map("dedicated_fans")
-  assistantCoaches Int     @map("assistant_coaches")
-  cheerleaders     Int
-  hasApothecary    Boolean @map("has_apothecary")
-  isExperienced    Boolean @map("is_experienced")
-  isSuspended      Boolean @map("is_suspended")
+  reroll_cost      Int      @db.Integer
+  has_apothecary   Boolean  @default(false)
+  apothecary_cost  Int      @db.Integer
+  has_necromancer  Boolean  @default(false)
+  max_big_guys     Int      @db.Integer
+  description      String?
+  pros             String?
+  cons             String?
+  createdAt        DateTime @default(now())
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt() @map("updated_at")
+  // Relations
+  teams             Team[]
+  positionalRosters PositionalRoster[]
 
-  coach   Coach  @relation(fields: [coachId], references: [id], onDelete: Cascade)
-  coachId String @map("coach_id")
+  @@map("roster")
+}
+
+model Positional {
+  id                          String   @id @default(uuid()) @db.Uuid
+  roster_id                   String   @db.Uuid
+  name                        String
+  slug                        String
+  type                        String
+  quantity                    Int      @db.Integer
+  cost                        Int      @db.Integer
+  MA                          Int      @db.Integer
+  ST                          Int      @db.Integer
+  AG                          Int      @db.Integer
+  PA                          Int      @db.Integer
+  AV                          Int      @db.Integer
+  is_thrall                   Boolean  @default(false)
+  is_undead                   Boolean  @default(false)
+  is_secret_weapon            Boolean  @default(false)
+  is_star_player              Boolean  @default(false)
+  primary_skill_categories    String[]
+  secondary_skill_categories  String[]
+  createdAt                   DateTime @default(now())
+
+  // Relations
+  players           Player[]
+  positionalRosters PositionalRoster[]
+  positionalSkills  PositionalSkill[]
+
+  @@map("positional")
+}
+
+model PositionalSkill {
+  positional_id String @db.Uuid
+  skill_id      String @db.Uuid
+
+  positional Positional @relation(fields: [positional_id], references: [id])
+  skill      Skill      @relation(fields: [skill_id], references: [id])
+
+  @@id([positional_id, skill_id])
+  @@map("positional_skill")
+}
+
+model PositionalRoster {
+  positional_id String   @db.Uuid
+  roster_id     String   @db.Uuid
+  createdAt     DateTime @default(now())
+
+  // Relations
+  positional Positional @relation(fields: [positional_id], references: [id])
+  roster     Roster     @relation(fields: [roster_id], references: [id])
+
+  @@id([positional_id, roster_id])
+  @@map("positional_roster")
+}
+
+model Player {
+  id              String   @id @default(uuid()) @db.Uuid
+  team_id         String   @db.Uuid
+  position_id     String   @db.Uuid
+  name            String
+  slug            String
+  number          Int      @db.Integer
+  status          String
+  starPlayer      Boolean  @default(false)
+  MA              Int      @db.Integer
+  ST              Int      @db.Integer
+  AG              Int      @db.Integer
+  PA              Int      @db.Integer
+  AV              Int      @db.Integer
+  spp             Int      @default(0) @db.Integer
+  completions     Int      @default(0) @db.Integer
+  touchdowns      Int      @default(0) @db.Integer
+  interceptions   Int      @default(0) @db.Integer
+  casualties      Int      @default(0) @db.Integer
+  mvp             Int      @default(0) @db.Integer
+  passes          Int      @default(0) @db.Integer
+  rushes          Int      @default(0) @db.Integer
+  blocks          Int      @default(0) @db.Integer
+  fouls           Int      @default(0) @db.Integer
+  matches_played  Int      @default(0) @db.Integer
+  createdAt       DateTime @default(now())
+
+  // Relations
+  team     Team       @relation(fields: [team_id], references: [id])
+  position Positional @relation(fields: [position_id], references: [id])
+  playerSkills   PlayerSkill[]
+  playerInjuries PlayerInjury[]
+
+  @@map("player")
+}
+
+model Injury {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String
+  slug         String
+  description  String
+  affected_stat String?
+  modifier     Int
+  createdAt    DateTime @default(now())
+
+  // Relations
+  playerInjuries PlayerInjury[]
+
+  @@map("injury")
+}
+
+model PlayerInjury {
+  player_id String   @db.Uuid
+  injury_id String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  // Relations
+  player Player @relation(fields: [player_id], references: [id])
+  injury Injury @relation(fields: [injury_id], references: [id])
+
+  @@id([player_id, injury_id])
+  @@map("player_injury")
+}
+
+model Skill {
+  id               String   @id @default(uuid()) @db.Uuid
+  name             String
+  slug             String
+  category         String
+  description      String
+  is_special_trait Boolean  @default(false)
+  createdAt        DateTime @default(now())
+
+  // Relations
+  playerSkills     PlayerSkill[]
+  positionalSkills PositionalSkill[]
+
+  @@map("skill")
+}
+
+model PlayerSkill {
+  player_id String   @db.Uuid
+  skill_id  String   @db.Uuid
+  value     String
+  createdAt DateTime @default(now())
+
+  // Relations
+  player Player @relation(fields: [player_id], references: [id])
+  skill  Skill  @relation(fields: [skill_id], references: [id])
+
+  @@id([player_id, skill_id])
+  @@map("player_skill")
+}
+
+model Match {
+  id                 String   @id @default(uuid()) @db.Uuid
+  team_home_id       String   @db.Uuid
+  team_away_id       String   @db.Uuid
+  touchdowns_home    Int      @default(0)
+  casualties_home    Int      @default(0)
+  completions_home   Int      @default(0)
+  interceptions_home Int      @default(0)
+  fouls_home         Int      @default(0)
+  touchdowns_away    Int      @default(0)
+  casualties_away    Int      @default(0)
+  completions_away   Int      @default(0)
+  interceptions_away Int      @default(0)
+  fouls_away         Int      @default(0)
+  createdAt          DateTime @default(now())
+
+  // Relations
+  homeTeam Team @relation("HomeTeam", fields: [team_home_id], references: [id])
+  awayTeam Team @relation("AwayTeam", fields: [team_away_id], references: [id])
+
+  @@map("match")
 }
