@@ -7,7 +7,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { CoachDto } from 'src/coaches/dto/coach.dto';
-import { TransformToDtoInterceptor } from 'src/common/transform-to-dto/transform-to-dto.interceptor';
+import { TransformToDtoInterceptor } from 'src/common/interceptors/transform-to-dto/transform-to-dto.interceptor';
 import { AuthService } from './auth.service';
 
 @Controller('auth')

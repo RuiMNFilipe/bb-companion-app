@@ -21,12 +21,7 @@ export class CoachesService {
       where: { username: username },
     });
 
-    return coach !== null
-    ? coach
-    : (() => {
-        winston.info('No coach was found with the given username ' + username);
-        return null;
-      })();
+    return coach;
   }
 
   async findOneById(id: UUID): Promise<Coach | null> {
@@ -34,12 +29,7 @@ export class CoachesService {
       where: { id: id },
     });
 
-    return coach !== null
-      ? coach
-      : (() => {
-          winston.info('No coach was found with the given id ' + id);
-          return null;
-        })();
+    return coach;
   }
 
   //TODO: Implement changePassword
