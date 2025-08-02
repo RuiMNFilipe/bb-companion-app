@@ -5,8 +5,8 @@ import { CoachesController } from './coaches.controller';
 import { CoachDto } from './dto/coach.dto';
 
 @Module({
-  imports: [DatabaseModule],
-  providers: [CoachesService],
+  imports: [DatabaseModule, CoachDto],
+  providers: [CoachesService, CoachDto],
   controllers: [CoachesController],
   exports: [CoachesService, CoachDto]
 })

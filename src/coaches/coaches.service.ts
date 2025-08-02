@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotImplementedException } from '@nestjs/common';
 import { Coach as PrismaCoach } from '@prisma/client';
 import { UUID } from 'crypto';
 import { DatabaseService } from 'src/database/database.service';
@@ -40,5 +40,10 @@ export class CoachesService {
           winston.info('No coach was found with the given id ' + id);
           return null;
         })();
+  }
+
+  //TODO: Implement changePassword
+  async changePassword() {
+    throw new NotImplementedException()
   }
 }
