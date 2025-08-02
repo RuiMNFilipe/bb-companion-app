@@ -3,6 +3,7 @@ import {
   Controller,
   HttpCode,
   HttpStatus,
+  NotImplementedException,
   Post,
   UseInterceptors,
 } from '@nestjs/common';
@@ -22,5 +23,10 @@ export class AuthController {
     @Body('password') pw: string,
   ) {
     return this.authService.signIn(username, pw);
+  }
+
+  //TODO: Implement changePassword
+  async changePassword() {
+    throw new NotImplementedException()
   }
 }

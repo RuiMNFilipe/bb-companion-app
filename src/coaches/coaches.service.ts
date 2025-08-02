@@ -10,13 +10,13 @@ export class CoachesService {
   constructor(private db: DatabaseService) {}
 
   async findAll(): Promise<Coach[]> {
-    return this.db.coach.findMany({
+    return await this.db.coach.findMany({
       orderBy: {createdAt: 'desc'}
     })
   }
 
   async findOneByUsername(username: string): Promise<Coach | null> {
-    const coach = this.db.coach.findUnique({
+    const coach = await this.db.coach.findUnique({
       where: { username: username },
     });
     
@@ -24,15 +24,10 @@ export class CoachesService {
   }
 
   async findOneById(id: UUID): Promise<Coach | null> {
-    const coach = this.db.coach.findUnique({
+    const coach = await this.db.coach.findUnique({
       where: { id: id },
     });
 
     return coach;
-  }
-
-  //TODO: Implement changePassword
-  async changePassword() {
-    throw new NotImplementedException()
   }
 }
