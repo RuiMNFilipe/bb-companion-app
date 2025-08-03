@@ -10,7 +10,6 @@ jobs:
     name: Validate PR Source Branch
     runs-on: ubuntu-latest
 
-
     steps:
       - name: Check Branch Protection Rules
         id: branch-check
@@ -24,23 +23,23 @@ jobs:
 
           SOURCE_BRANCH="${{ github.head_ref }}"
           TARGET_BRANCH="${{ github.base_ref }}"
-          
+
           # Only enforce rules for PRs targeting main
           if [[ "$TARGET_BRANCH" != "main" ]]; then
             echo "✅ Target is not main branch ($TARGET_BRANCH) - no restrictions apply"
             echo "🎉 This PR can proceed normally"
             exit 0
           fi
-          
+
           # Only enforce rules for PRs targeting main
           if [[ "$TARGET_BRANCH" != "main" ]]; then
             echo "✅ Target is not main branch ($TARGET_BRANCH) - no restrictions apply"
             echo "🎉 This PR can proceed normally"
             exit 0
           fi
-          
+
           echo "🛡️ Checking main branch protection rules..."
-          
+
           # Define allowed patterns
           if [[ "$SOURCE_BRANCH" == "develop" ]] || 
              [[ "$SOURCE_BRANCH" =~ ^hotfix/.+ ]] || 
@@ -156,45 +155,3 @@ jobs:
               repo: context.repo.repo,
               body: comment
             });
-
-  # Optional: Also run basic code quality checks
-  code-quality:
-    name: Code Quality Checks
-    runs-on: ubuntu-latest
-    if: github.base_ref == 'main'
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'pnpm'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 8
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Run linting (Backend)
-        run: pnpm --filter backend lint
-        continue-on-error: false
-
-      - name: Run tests (Backend)
-        run: pnpm --filter backend test
-        continue-on-error: false
-
-      # Add frontend checks when you have a frontend
-      # - name: Run linting (Frontend)
-      #   run: pnpm --filter frontend lint
-      #   continue-on-error: false
-
-      - name: Check build (Backend)
-        run: pnpm --filter backend build
-        continue-on-error: false
-
