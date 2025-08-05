@@ -1,8 +1,9 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './passport/local-auth.guard';
-import { Coach } from '@prisma/client';
+import { Coach } from '@bb-companion/database';
 import { CreateCoachDto } from 'src/coaches/dto/create-coach.dto';
+import { JwtAuthGuard } from './passport/jwt.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -17,5 +18,11 @@ export class AuthController {
   @Post('register')
   async register(@Body() createCoachDto: CreateCoachDto) {
     return this.authService.register(createCoachDto);
+  }
+
+  @Get('me')
+  @UseGuards(JwtAuthGuard)
+  getProfile(@Req() req: { user: Coach }) {
+    return req.user;
   }
 }

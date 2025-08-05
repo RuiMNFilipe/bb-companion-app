@@ -3,14 +3,25 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev:backend": "pnpm --filter backend start:dev",
-    "build:backend": "pnpm --filter backend build",
-    "start:backend": "pnpm --filter backend start",
-    "test:backend": "pnpm --filter backend test",
-    "dev:frontend": "pnpm --filter frontend start",
-    "dev": "concurrently \"pnpm dev:backend\" \"pnpm dev:frontend\""
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "type-check": "turbo type-check",
+    "db:generate": "turbo db:generate",
+    "db:push": "turbo db:push --filter=database",
+    "db:migrate": "turbo db:migrate --filter=database",
+    "db:studio": "turbo db:studio --filter=database",
+    "dev:backend": "turbo dev --filter=backend",
+    "dev:frontend": "turbo dev --filter=frontend",
+    "build:backend": "turbo build --filter=backend",
+    "build:frontend": "turbo build --filter=frontend",
+    "docker:up": "docker compose -f ./backend/docker/docker-compose.yml up -d",
+    "docker:dev": "docker compose up -d && turbo dev",
+    "docker:backend": "docker compose up -d database && turbo dev --filter=backend"
   },
   "devDependencies": {
-    "concurrently": "^9.2.0"
-  }
+    "turbo": "^2.5.5"
+  },
+  "packageManager": "pnpm@10.13.1"
 }

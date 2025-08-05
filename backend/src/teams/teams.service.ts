@@ -2,8 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { DatabaseService } from 'src/database/database.service';
-import { Team } from '@prisma/client';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { Team, PrismaClientKnownRequestError } from '@bb-companion/database';
 
 @Injectable()
 export class TeamsService {
