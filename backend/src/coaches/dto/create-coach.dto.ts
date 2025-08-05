@@ -4,6 +4,7 @@ import {
   IsDate,
   IsEmail,
   IsNotEmpty,
+  IsOptional,
   IsString,
 } from 'class-validator';
 
@@ -22,11 +23,11 @@ export class CreateCoachDto {
   email: string;
 
   @IsBoolean()
-  @IsNotEmpty()
+  @IsOptional()
   active: boolean;
 
   @Type(() => Date)
   @IsDate()
-  @IsNotEmpty()
+  @IsOptional()
   lastLogin: Date;
 }

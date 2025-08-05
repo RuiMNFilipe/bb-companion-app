@@ -1,0 +1,37 @@
+{
+  "name": "@bb-companion/database",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "dist/*",
+    "dist/**/*"
+  ],
+  "scripts": {
+    "db:generate": "pnpm dlx prisma generate",
+    "db:push": "pnpm dlx prisma db push",
+    "db:migrate": "pnpm dlx prisma migrate dev",
+    "db:studio": "pnpm dlx prisma studio",
+    "db:seed": "tsx src/seed.ts",
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.7",
+    "prisma": "^6.12.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.7.3"
+  }
+}

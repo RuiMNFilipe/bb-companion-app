@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   StatusBar,
   KeyboardAvoidingView,
@@ -8,10 +8,11 @@ import {
   View,
   Text,
   TouchableOpacity,
+  TextInput,
 } from 'react-native';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Control, Controller, FieldErrors, useForm } from 'react-hook-form';
+import { Controller, FieldErrors, useForm } from 'react-hook-form';
 
 import {
   ControlledInput,
@@ -32,10 +33,18 @@ export const AuthScreen = ({
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const loginUsernameRef = useRef<TextInput>(null);
+  const loginPasswordRef = useRef<TextInput>(null);
+
+  const signUpUsernameRef = useRef<TextInput>(null);
+  const signUpEmailRef = useRef<TextInput>(null);
+  const signUpPasswordRef = useRef<TextInput>(null);
+  const signUpConfirmPasswordRef = useRef<TextInput>(null);
+
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: '',
+      username: '',
       password: '',
       rememberMe: false,
     },
@@ -53,15 +62,13 @@ export const AuthScreen = ({
     mode: 'onBlur',
   });
 
-  const currentForm = isLoginMode ? loginForm : signUpForm;
+  const loginFormState = loginForm.formState;
+  const signUpFormState = signUpForm.formState;
+  const currentFormState = isLoginMode ? loginFormState : signUpFormState;
 
-  const {
-    handleSubmit,
-    control,
-    formState: { errors, isValid, isDirty },
-  } = currentForm;
+  const { errors, isValid, isDirty } = currentFormState;
 
-  const watchedPassword = !isLoginMode && signUpForm.watch('password');
+  const watchedPassword = signUpForm.watch('password');
 
   const handleFormSubmit = async (
     data: LoginFormData | SignUpFormData,
@@ -91,18 +98,18 @@ export const AuthScreen = ({
     setShowPassword(false);
     setShowConfirmPassword(false);
 
-    if (isLoginMode) {
-      loginForm.reset();
-    } else {
-      signUpForm.reset();
-    }
+    loginForm.reset();
+    signUpForm.reset();
   };
 
   const handleForgotPassword = (): void => {
     Alert.alert('Forgot Password', 'Password reset functionality coming soon!');
   };
 
-  const isSubmitDisabled: boolean = !isValid || !isDirty || !isLoading;
+  const isSubmitDisabled: boolean = !isValid || !isDirty || isLoading;
+  const currentHandleSubmit = isLoginMode
+    ? loginForm.handleSubmit
+    : signUpForm.handleSubmit;
 
   return (
     <SafeAreaView style={authStyles.container}>
@@ -135,57 +142,82 @@ export const AuthScreen = ({
               </Text>
             </View>
             <View style={authStyles.formContainer}>
+              <ControlledInput
+                key={
+                  isLoginMode ? 'login-username-input' : 'signup-username-input'
+                }
+                ref={isLoginMode ? loginUsernameRef : signUpUsernameRef}
+                name="username"
+                control={isLoginMode ? loginForm.control : signUpForm.control}
+                label="Username"
+                placeholder="Enter your username"
+                icon="person-outline"
+                error={errors.username?.message}
+                editable={!isLoading}
+                autoCapitalize="none"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  if (isLoginMode) {
+                    loginPasswordRef.current?.focus();
+                  } else {
+                    signUpEmailRef.current?.focus();
+                  }
+                }}
+              />
+
               {!isLoginMode && (
                 <ControlledInput
-                  name="username"
-                  control={control as Control<SignUpFormData>}
-                  label="Username"
-                  placeholder="Enter your username"
-                  icon="person-outline"
-                  error={
-                    (errors as FieldErrors<SignUpFormData>).username?.message
-                  }
+                  name="email"
+                  ref={signUpEmailRef}
+                  control={signUpForm.control}
+                  label="Email"
+                  placeholder="Enter your email"
+                  icon="mail-outline"
+                  keyboardType="email-address"
+                  error={signUpForm.formState.errors.email?.message}
                   editable={!isLoading}
                   autoCapitalize="none"
+                  returnKeyType="next"
+                  onSubmitEditing={() => signUpPasswordRef.current?.focus()}
                 />
               )}
 
               <ControlledInput
-                name="email"
-                control={control as Control<SignUpFormData>}
-                label="Email"
-                placeholder="Enter your email"
-                icon="mail-outline"
-                keyboardType="email-address"
-                error={errors.password?.message}
-                editable={!isLoading}
-                autoCapitalize="none"
-              />
-
-              <ControlledInput
+                key={
+                  isLoginMode ? 'login-password-input' : 'signup-password-input'
+                }
+                ref={isLoginMode ? loginPasswordRef : signUpPasswordRef}
                 name="password"
-                control={control as Control<SignUpFormData>}
+                control={isLoginMode ? loginForm.control : signUpForm.control}
                 label="Password"
                 placeholder="Enter your password"
                 icon="lock-closed-outline"
-                secureTextEntry={true}
+                secureTextEntry={!showPassword}
                 showPasswordToggle={true}
                 showPassword={showPassword}
                 onTogglePassword={() => setShowPassword(!showPassword)}
                 error={errors.password?.message}
                 editable={!isLoading}
+                autoCapitalize="none"
+                returnKeyType={isLoginMode ? 'done' : 'next'}
+                onSubmitEditing={() => {
+                  if (isLoginMode) {
+                    currentHandleSubmit(handleFormSubmit)();
+                  } else {
+                    signUpConfirmPasswordRef.current?.focus();
+                  }
+                }}
               />
 
               {!isLoginMode && (
-                <PasswordStrengthIndicator
-                  password={watchedPassword as string}
-                />
+                <PasswordStrengthIndicator password={watchedPassword} />
               )}
 
               {!isLoginMode && (
                 <ControlledInput
+                  ref={signUpConfirmPasswordRef}
                   name="confirmPassword"
-                  control={control as Control<SignUpFormData>}
+                  control={signUpForm.control}
                   label="Confirm Password"
                   placeholder="Confirm your password"
                   icon="lock-closed-outline"
@@ -200,13 +232,16 @@ export const AuthScreen = ({
                       ?.message
                   }
                   editable={!isLoading}
+                  autoCapitalize="none"
+                  returnKeyType="done"
+                  onSubmitEditing={currentHandleSubmit(handleFormSubmit)}
                 />
               )}
 
               {isLoginMode && (
                 <>
                   <Controller
-                    control={control as Control<LoginFormData>}
+                    control={loginForm.control}
                     name="rememberMe"
                     render={({ field: { onChange, value } }) => (
                       <RememberMeCheckbox
@@ -245,7 +280,7 @@ export const AuthScreen = ({
               )}
 
               <LoadingButton
-                onPress={handleSubmit(handleFormSubmit)}
+                onPress={currentHandleSubmit(handleFormSubmit)}
                 disabled={isSubmitDisabled}
                 isLoading={isLoading}
                 title={isLoginMode ? 'Sign In' : 'Create Account'}

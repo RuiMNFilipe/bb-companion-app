@@ -1,8 +1,2 @@
-export {
-  LoginFormData,
-  SignUpFormData,
-  AuthScreenProps,
-  FormData,
-  PasswordRequirements,
-  PasswordStrength,
-} from './auth';
+export * from './auth';
+export * from './errors';

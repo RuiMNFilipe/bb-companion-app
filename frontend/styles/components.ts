@@ -14,7 +14,7 @@ export const componentStyles = StyleSheet.create({
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#16213e',
     borderRadius: 12,
     borderWidth: 2,
     borderColor: 'transparent',
