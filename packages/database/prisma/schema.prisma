@@ -8,15 +8,15 @@ datasource db {
 }
 
 model Coach {
-  id       String  @id @default(uuid())
-  username String  @unique
+  id       String   @id @default(uuid())
+  username String   @unique
   password String
-  email    String  @unique
-  active   Boolean
+  email    String   @unique
+  active   Boolean? @default(true)
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt() @map("updated_at")
-  lastLogin DateTime
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt() @map("updated_at")
+  lastLogin DateTime?
 
   teams Team[]
 }

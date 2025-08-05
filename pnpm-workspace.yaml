@@ -1,5 +1,4 @@
 packages:
-  - backend
-  - frontend
-
-nodeLinker: hoisted
+  - 'backend'
+  - 'frontend'
+  - 'packages/*'

@@ -1,22 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateCoachDto } from './dto/create-coach.dto';
 import { DatabaseService } from 'src/database/database.service';
-import { Coach } from '@prisma/client';
+import { Coach, PrismaClientKnownRequestError } from '@bb-companion/database';
 
 @Injectable()
 export class CoachesService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async create(createCoachDto: CreateCoachDto): Promise<Coach> {
-    return this.databaseService.coach.create({
-      data: createCoachDto,
-    });
+    try {
+      return await this.databaseService.coach.create({
+        data: createCoachDto,
+      });
+    } catch (error) {
+      if (
+        error instanceof PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new ConflictException('Username already exists.');
+      }
+      throw error;
+    }
   }
 
-  async findOne(username: string): Promise<Coach | null> {
+  async findByUsername(username: string): Promise<Coach | null> {
     return this.databaseService.coach.findUnique({
       where: {
         username,
+      },
+    });
+  }
+
+  async findById(id: string): Promise<Coach | null> {
+    return this.databaseService.coach.findUnique({
+      where: {
+        id,
       },
     });
   }

@@ -12,7 +12,7 @@ import {
 import { TeamsService } from './teams.service';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
-import { Coach } from '@prisma/client';
+import { Coach } from '@bb-companion/database';
 import { JwtAuthGuard } from 'src/auth/passport/jwt.guard';
 
 @UseGuards(JwtAuthGuard)

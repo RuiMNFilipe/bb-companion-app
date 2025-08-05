@@ -18,6 +18,13 @@
     "strictBindCallApply": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "paths": {
+      "@bb-companion/database": ["../packages/database/src/index.ts"],
+      "@bb-companion/database/*": ["../packages/database/src/*"]
+    }
+  },
+  "include": ["src/**/*", "lib/**/*", "types.d.ts"],
+  "exclude": ["node_modules", "dist", "test"]
 }
