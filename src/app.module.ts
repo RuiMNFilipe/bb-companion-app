@@ -9,6 +9,7 @@ import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { CoachesModule } from './coaches/coaches.module';
 import { DatabaseService } from './database/database.service';
+import { TeamsModule } from './teams/teams.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { DatabaseService } from './database/database.service';
     DatabaseModule,
     AuthModule,
     CoachesModule,
+    TeamsModule,
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseService],
