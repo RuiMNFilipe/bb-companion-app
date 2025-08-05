@@ -1,4 +1,13 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateTeamDto } from './create-team.dto';
+import { Type } from 'class-transformer';
+import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
+import { CreatePlayerDto } from 'src/players/create-player.dto';
 
-export class UpdateTeamDto extends PartialType(CreateTeamDto) {}
+export class UpdateTeamDto {
+  @IsUUID()
+  @IsNotEmpty()
+  team_id: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+}

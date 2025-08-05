@@ -16,7 +16,7 @@ export class AuthService {
         const coach = await this.coachesService.findOneByUsername(username); 
         if (!coach) throw new NotFoundException("Coach not found");
 
-        const isMatch = await compare(password, coach.password);
+        const isMatch = await compare(password, coach.passwordHash);
         if (!isMatch) throw new UnauthorizedException("Invalid password");
 
         const token = { sub: coach.id, username: coach.username }

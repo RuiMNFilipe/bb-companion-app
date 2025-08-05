@@ -27,6 +27,5 @@ export class CoachDto {
 
   @Type(() => Date)
   @IsDate()
-  @IsNotEmpty()
   lastLogin: Date;
 }
