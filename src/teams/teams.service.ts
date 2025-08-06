@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { DatabaseService } from 'src/database/database.service';
@@ -12,24 +12,41 @@ export class TeamsService {
   constructor(private db: DatabaseService) {}
   
   async create(createTeamDto: CreateTeamDto) {
-    const coachExists = await this.db.coach.findUnique({
-      where: { id: createTeamDto.coach_id },
+    const coachId = await this.db.coach.findUnique({
+      where: { username: createTeamDto.coach },
       select: { id: true}
     })
-
-    if (!coachExists) {
+    if (!coachId) {
       throw new NotFoundException("Coach not found. Could not create Team.")
     }
 
+    const rosterId = await this.db.roster.findUnique({
+      where: { slug: createTeamDto.roster_slug},
+      select: { id: true }
+    })
+    if (!rosterId) {
+      throw new NotFoundException("Roster not found. Could not create Team.")
+    }
+
+    if (createTeamDto.name.trim().length === 0){
+      throw new BadRequestException("No team name was given.")
+    }
+
+    const assumedTreasury = createTeamDto.treasury;
+    const assumedTeamValue = createTeamDto.team_value;
+
     return await this.db.team.create({
       data: {
-        coach_id: createTeamDto.coach_id,
-        roster_id: createTeamDto.roster_slug,
+        coach_id: coachId.id,
+        roster_id: rosterId.id,
         name: createTeamDto.name,
-        created_at: new Date(),
-        updated_at: new Date(),
-        deactivated: false
+        rerolls: createTeamDto.rerolls,
+        dedicated_fans: createTeamDto.dedicated_fans,
+        assistant_coaches: createTeamDto.assistant_coaches,
+        cheerleaders: createTeamDto.cheerleaders,
+        has_apothecary: createTeamDto.has_apothecary,
       }
+
     })
   }
 

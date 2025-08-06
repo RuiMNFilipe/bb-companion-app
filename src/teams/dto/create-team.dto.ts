@@ -1,10 +1,10 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { CreatePlayerDto } from 'src/players/create-player.dto';
 
 export class CreateTeamDto {
-  @IsUUID()
+  @IsString()
   @IsNotEmpty()
-  coach_id: string;
+  coach: string;
 
   @IsString()
   @IsNotEmpty()

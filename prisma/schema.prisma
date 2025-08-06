@@ -25,7 +25,7 @@ model Team {
   id                 String   @id @default(uuid()) @db.Uuid
   coach_id           String   @db.Uuid
   roster_id          String   @db.Uuid
-  name               String
+  name               String   
   win                Int      @default(0) @db.Integer
   loss               Int      @default(0) @db.Integer
   ties               Int      @default(0) @db.Integer
@@ -55,7 +55,8 @@ model Team {
 
 model Roster {
   id               String   @id @default(uuid()) @db.Uuid
-  name             String
+  name             String   @unique
+  slug             String   @unique
   reroll_cost      Int      @db.Integer
   has_apothecary   Boolean  @default(false)
   apothecary_cost  Int      @db.Integer
@@ -77,7 +78,7 @@ model Positional {
   id                          String   @id @default(uuid()) @db.Uuid
   roster_id                   String   @db.Uuid
   name                        String
-  slug                        String
+  slug                        String   @unique
   type                        String
   quantity                    Int      @db.Integer
   cost                        Int      @db.Integer
@@ -105,8 +106,8 @@ model Positional {
 model PositionalSkill {
   positional_id String @db.Uuid
   skill_id      String @db.Uuid
-  value         Int    @db.Integer
-
+  value         String 
+  gold_cost     Int    @db.Integer
   positional Positional @relation(fields: [positional_id], references: [id])
   skill      Skill      @relation(fields: [skill_id], references: [id])
 
@@ -133,7 +134,6 @@ model Player {
   team_id         String   @db.Uuid
   position_id     String   @db.Uuid
   name            String
-  slug            String
   number          Int      @db.Integer
   status          String
   starPlayer      Boolean  @default(false)
@@ -167,7 +167,7 @@ model Player {
 model Injury {
   id           String   @id @default(uuid()) @db.Uuid
   name         String
-  slug         String
+  slug         String   @unique
   description  String
   affected_stat String?
   modifier     Int
@@ -195,7 +195,7 @@ model PlayerInjury {
 model Skill {
   id               String   @id @default(uuid()) @db.Uuid
   name             String
-  slug             String
+  slug             String   @unique
   category         String
   description      String
   is_special_trait Boolean  @default(false)
