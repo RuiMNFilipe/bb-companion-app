@@ -39,7 +39,7 @@ model Team {
   has_apothecary     Boolean  @default(false)
   is_experienced     Boolean  @default(false)
   is_suspended       Boolean  @default(false)
-  deactivated        Boolean  @default(false)
+  is_deactivated     Boolean  @default(false)
   created_at         DateTime @default(now())
   updated_at         DateTime @updatedAt
 

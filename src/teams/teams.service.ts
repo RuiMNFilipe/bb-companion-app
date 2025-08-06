@@ -68,7 +68,7 @@ export class TeamsService {
   }
 
   //TODO: Implement Team Update
-  async update(id: number, updateTeamDto: UpdateTeamDto) {
+  async update(id: UUID, updateTeamDto: UpdateTeamDto) {
     return `This action updates a #${id} team`;
   }
 
@@ -76,7 +76,7 @@ export class TeamsService {
     return await this.db.team.update({
       where: { id },
       data: {
-        deactivated: true,
+        is_deactivated: true,
         updated_at: new Date()
       }
     });

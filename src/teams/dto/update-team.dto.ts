@@ -1,6 +1,4 @@
-import { Type } from 'class-transformer';
-import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
-import { CreatePlayerDto } from 'src/players/create-player.dto';
+import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class UpdateTeamDto {
   @IsUUID()
@@ -10,4 +8,7 @@ export class UpdateTeamDto {
   @IsString()
   @IsNotEmpty()
   name: string;
+
+  @IsBoolean()
+  deactivated: boolean;
 }

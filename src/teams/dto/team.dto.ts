@@ -1,18 +1,33 @@
 import { IsBoolean, IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
-import { CreatePlayerDto } from 'src/players/create-player.dto';
-
-export class CreateTeamDto {
+ 
+export class TeamDto {
   @IsUUID()
   @IsNotEmpty()
-  coach_id: string;
+  coach: string;
 
-  @IsString()
+  @IsUUID()
   @IsNotEmpty()
   roster_slug: string;
 
   @IsString()
   @IsNotEmpty()
   name: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  win: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  loss: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  ties: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  delta: number;
 
   @IsNumber()
   @IsNotEmpty()
@@ -23,7 +38,7 @@ export class CreateTeamDto {
   treasury: number;
 
   @IsNotEmpty()
-  players: CreatePlayerDto[]
+  players: PlayerDto[];
 
   @IsNumber()
   @IsNotEmpty()
@@ -44,4 +59,16 @@ export class CreateTeamDto {
   @IsBoolean()
   @IsNotEmpty()
   has_apothecary: boolean;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  is_experienced: boolean;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  is_suspended: boolean;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  is_deactivated: boolean;
 }
