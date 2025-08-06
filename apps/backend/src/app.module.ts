@@ -5,7 +5,6 @@ import { ConfigModule } from '@nestjs/config';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import { utilities as nestWinstonModuleUtilities } from 'nest-winston';
-// import { StaticDataModule } from './static-data/static-data.module';
 import { DatabaseModule } from './database/database.module';
 import { CoachesModule } from './coaches/coaches.module';
 import { AuthService } from './auth/auth.service';
@@ -34,9 +33,6 @@ import { TeamsModule } from './teams/teams.module';
     }),
     // StaticDataModule,
     DatabaseModule,
-    CoachesModule,
-    AuthModule,
-    TeamsModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService],
