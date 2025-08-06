@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -19,7 +20,10 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+<<<<<<< HEAD:backend/tsconfig.json
     "moduleResolution": "node",
+=======
+>>>>>>> refactor:apps/backend/tsconfig.json
     "paths": {
       "@bb-companion/database": ["../packages/database/src/index.ts"],
       "@bb-companion/database/*": ["../packages/database/src/*"]

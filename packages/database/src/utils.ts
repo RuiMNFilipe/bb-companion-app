@@ -1,22 +1,4 @@
-<<<<<<< HEAD
-// Export the Prisma client and all types
-export * from '@prisma/client';
-export {
-  PrismaClientKnownRequestError,
-  PrismaClientValidationError,
-} from "@prisma/client/runtime/library"
-
-// Export the client instance
-import { PrismaClient } from '@prisma/client';
-
-// Create a singleton instance
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
-};
-
-export const prisma = globalForPrisma.prisma ?? new PrismaClient();
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+import { prisma } from './prisma';
 
 // Export database utilities
 export async function connectDatabase() {
@@ -51,8 +33,3 @@ export const handleDatabaseError = (error: any): DatabaseError => {
     message: error.message || 'An unknown database error occurred',
   };
 };
-=======
-export { prisma } from "./prisma";
-
-export type { Coach, Team, Prisma } from "@prisma/client"
->>>>>>> refactor

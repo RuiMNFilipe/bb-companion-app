@@ -1,7 +1,10 @@
 {
   "name": "@bb-companion/shared",
   "version": "1.0.0",
+<<<<<<< HEAD
   "main": "./dist/index.js",
+=======
+>>>>>>> refactor
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {

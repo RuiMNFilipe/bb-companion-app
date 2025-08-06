@@ -12,14 +12,21 @@ importers:
         specifier: ^2.5.5
         version: 2.5.5
 
-  backend:
+  apps/backend:
     dependencies:
       '@bb-companion/database':
         specifier: workspace:*
+<<<<<<< HEAD
         version: link:../packages/database
       '@bb-companion/shared':
         specifier: workspace:*
         version: link:../packages/shared
+=======
+        version: link:../../packages/database
+      '@bb-companion/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
+>>>>>>> refactor
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.5(class-transformer@0.5.1)(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -157,14 +164,21 @@ importers:
         specifier: ^8.20.0
         version: 8.39.0(eslint@9.32.0(jiti@2.5.1))(typescript@5.8.3)
 
-  frontend:
+  apps/frontend:
     dependencies:
       '@bb-companion/database':
         specifier: workspace:*
+<<<<<<< HEAD
         version: link:../packages/database
       '@bb-companion/shared':
         specifier: workspace:*
         version: link:../packages/shared
+=======
+        version: link:../../packages/database
+      '@bb-companion/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
+>>>>>>> refactor
       '@expo/vector-icons':
         specifier: ^14.1.0
         version: 14.1.0(expo-font@13.3.2(expo@53.0.20(@babel/core@7.28.0)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -9913,11 +9927,11 @@ snapshots:
 
   dotenv-expand@11.0.7:
     dependencies:
-      dotenv: 16.4.7
+      dotenv: 16.6.1
 
   dotenv-expand@12.0.1:
     dependencies:
-      dotenv: 16.4.7
+      dotenv: 16.6.1
 
   dotenv@16.4.7: {}
 

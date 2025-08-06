@@ -1,13 +1,29 @@
 {
   "name": "@bb-companion/database",
   "version": "1.0.0",
+<<<<<<< HEAD
   "main": "./dist/index.js",
+=======
+>>>>>>> refactor
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "import": "./dist/index.js"
+<<<<<<< HEAD
+=======
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "require": "./dist/utils.js",
+      "import": "./dist/utils.js"
+    },
+    "./errors": {
+      "types": "./dist/errors.d.ts",
+      "require": "./dist/errors.js",
+      "import": "./dist/errors.js"
+>>>>>>> refactor
     }
   },
   "files": [
