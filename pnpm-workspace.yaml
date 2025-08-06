@@ -1,8 +1,3 @@
 packages:
-<<<<<<< HEAD
-  - 'backend'
-  - 'frontend'
-=======
   - 'apps/*'
->>>>>>> refactor
   - 'packages/*'

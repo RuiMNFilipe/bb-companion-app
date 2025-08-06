@@ -16,17 +16,10 @@ importers:
     dependencies:
       '@bb-companion/database':
         specifier: workspace:*
-<<<<<<< HEAD
-        version: link:../packages/database
-      '@bb-companion/shared':
-        specifier: workspace:*
-        version: link:../packages/shared
-=======
         version: link:../../packages/database
       '@bb-companion/shared':
         specifier: workspace:*
         version: link:../../packages/shared
->>>>>>> refactor
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.5(class-transformer@0.5.1)(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -168,17 +161,10 @@ importers:
     dependencies:
       '@bb-companion/database':
         specifier: workspace:*
-<<<<<<< HEAD
-        version: link:../packages/database
-      '@bb-companion/shared':
-        specifier: workspace:*
-        version: link:../packages/shared
-=======
         version: link:../../packages/database
       '@bb-companion/shared':
         specifier: workspace:*
         version: link:../../packages/shared
->>>>>>> refactor
       '@expo/vector-icons':
         specifier: ^14.1.0
         version: 14.1.0(expo-font@13.3.2(expo@53.0.20(@babel/core@7.28.0)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
