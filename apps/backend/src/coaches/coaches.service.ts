@@ -1,7 +1,8 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateCoachDto } from './dto/create-coach.dto';
 import { DatabaseService } from 'src/database/database.service';
-import { Coach, PrismaClientKnownRequestError } from '@bb-companion/database';
+import { Coach } from '@bb-companion/database';
+import { PrismaClientKnownRequestError } from '@bb-companion/database/errors';
 
 @Injectable()
 export class CoachesService {

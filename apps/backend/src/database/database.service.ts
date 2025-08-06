@@ -1,5 +1,6 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-import { Prisma, prisma, PrismaClient } from '@bb-companion/database';
+import { Prisma, prisma } from '@bb-companion/database';
+import { PrismaClient } from '@bb-companion/database/errors';
 
 @Injectable()
 export class DatabaseService implements OnModuleInit, OnModuleDestroy {
