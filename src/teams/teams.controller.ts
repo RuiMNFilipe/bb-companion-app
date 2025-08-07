@@ -24,7 +24,7 @@ export class TeamsController {
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe)  id: UUID) {
     const team = this.teamsService.findOneById(id);
-    
+
   }
 
   @Patch(':id')
@@ -38,9 +38,9 @@ export class TeamsController {
   }
 }
 
-function getCoachNameForTeam(teamObj: any) {
+function getCoachNameByTeamId(teamObj: any) {
 
 }
-function getCoachSlugForTeam(teamObj: any) {
+function getCoachSlugByTeamId(teamObj: any) {
 
 }
