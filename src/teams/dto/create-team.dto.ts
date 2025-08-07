@@ -18,10 +18,6 @@ export class CreateTeamDto {
   @IsNotEmpty()
   team_value: number;
 
-  @IsNumber()
-  @IsNotEmpty()
-  treasury: number;
-
   @IsNotEmpty()
   players: CreatePlayerDto[]
 

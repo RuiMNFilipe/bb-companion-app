@@ -32,8 +32,7 @@ export class TeamsService {
       throw new BadRequestException("No team name was given.")
     }
 
-    const assumedTreasury = createTeamDto.treasury;
-    const assumedTeamValue = createTeamDto.team_value;
+    const endTreasury: number = calculateEndTreasury()
 
     return await this.db.team.create({
       data: {
@@ -45,11 +44,71 @@ export class TeamsService {
         assistant_coaches: createTeamDto.assistant_coaches,
         cheerleaders: createTeamDto.cheerleaders,
         has_apothecary: createTeamDto.has_apothecary,
+        treasury: await calculateEndTreasury(rosterId.id, createTeamDto)
+      }
+    });
+
+    async function getStaffCosts(rosterId: string, db: DatabaseService): Promise<{
+      reroll_cost: number;
+      dedicated_fans_cost: number;
+      assistant_coach_cost: number;
+      cheerleader_cost: number;
+      apothecary_cost: number;
+    }> {
+      const costs = await db.roster.findFirst({
+        where: { id: rosterId },
+        select: {
+          reroll_cost: true,
+          dedicated_fans_cost: true,
+          assistant_coach_cost: true,
+          cheerleader_cost: true,
+          apothecary_cost: true
+        }
+      });
+
+      if (!costs) {
+        throw new NotFoundException(`Could not find roster with ID: ${rosterId}`);
       }
 
-    })
-  }
+      return costs;
+    }
 
+    async function getPositionalCosts(rosterId: string, createPlayerDtos: string[], db: DatabaseService) {
+      const costs = await db.positionalRoster.findMany({
+        where: { roster_id: rosterId },
+        select: {
+          
+        }
+      });
+
+      if (!costs) {
+        throw new NotFoundException(`Could not find roster with ID: ${rosterId}`);
+      }
+
+      return costs;
+    }
+
+    async function calculateEndTreasury(
+      rosterId: string,
+      createTeamDto: CreateTeamDto
+    ): Promise<number> {
+
+      const staffCosts = await getStaffCosts(rosterId, this.db)
+      const playerCosts = await getPositionalCosts(rosterId, this.db)
+
+      // Staff costs
+      const rerollCost = createTeamDto.rerolls * staffCosts.reroll_cost;
+      const dedicatedFansCost = createTeamDto.dedicated_fans * staffCosts.dedicated_fans_cost;
+      const assistantCoachesCost = createTeamDto.assistant_coaches * staffCosts.assistant_coach_cost;
+      const cheerleadersCost = createTeamDto.cheerleaders * staffCosts.cheerleader_cost;
+      const apothecaryCost = createTeamDto.has_apothecary ? staffCosts.apothecary_cost : 0;
+
+      // Player costs
+      const players = this.db.positional.findMany({
+
+      });
+    }
+  }
 
 
   async findAll() {

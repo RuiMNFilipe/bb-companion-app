@@ -54,18 +54,21 @@ model Team {
 }
 
 model Roster {
-  id               String   @id @default(uuid()) @db.Uuid
-  name             String   @unique
-  slug             String   @unique
-  reroll_cost      Int      @db.Integer
-  has_apothecary   Boolean  @default(false)
-  apothecary_cost  Int      @db.Integer
-  has_necromancer  Boolean  @default(false)
-  max_big_guys     Int      @db.Integer
-  description      String?
-  pros             String?
-  cons             String?
-  createdAt        DateTime @default(now())
+  id                    String   @id @default(uuid()) @db.Uuid
+  name                  String   @unique
+  slug                  String   @unique
+  dedicated_fans_cost   Int      @db.Integer
+  assistant_coach_cost  Int      @db.Integer
+  cheerleader_cost      Int      @db.Integer
+  reroll_cost           Int      @db.Integer
+  has_apothecary        Boolean  @default(false)
+  apothecary_cost       Int      @db.Integer
+  has_necromancer       Boolean  @default(false)
+  max_big_guys          Int      @db.Integer
+  description           String?
+  pros                  String?
+  cons                  String?
+  createdAt             DateTime @default(now())
 
   // Relations
   teams             Team[]
@@ -81,7 +84,6 @@ model Positional {
   slug                        String   @unique
   type                        String
   quantity                    Int      @db.Integer
-  cost                        Int      @db.Integer
   MA                          Int      @db.Integer
   ST                          Int      @db.Integer
   AG                          Int      @db.Integer
@@ -119,6 +121,7 @@ model PositionalRoster {
   positional_id String   @db.Uuid
   roster_id     String   @db.Uuid
   limit_max     Int      @db.Integer
+  cost          Int      @db.Integer
   createdAt     DateTime @default(now())
 
   // Relations
