@@ -173,7 +173,7 @@ export const authApi = {
 
     return response.exists;
   },
-
+  
   verifyToken: async () => {
     const response = await apiFetch<{
       user: Omit<Coach, 'password'>;
