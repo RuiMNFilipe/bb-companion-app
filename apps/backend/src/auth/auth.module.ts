@@ -25,6 +25,7 @@ import { SessionService } from './session.service';
   ],
   controllers: [AuthController],
   providers: [
+    CoachesService,
     AuthService,
     LocalStrategy,
     JwtStrategy,
@@ -32,6 +33,7 @@ import { SessionService } from './session.service';
       provide: APP_FILTER,
       useClass: JwtExpiredFilter,
     },
+
     SessionService,
   ],
   exports: [AuthService, JwtModule, SessionService],

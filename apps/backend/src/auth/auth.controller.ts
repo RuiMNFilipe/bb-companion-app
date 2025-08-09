@@ -11,13 +11,11 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './passport/local-auth.guard';
 import { Coach } from '@bb-companion/database';
 import { CreateCoachDto } from 'src/coaches/dto/create-coach.dto';
 import { JwtAuthGuard } from './passport/jwt.guard';
-
 import { CurrentUser } from 'utils';
 import { SessionResponse } from './types';
 
