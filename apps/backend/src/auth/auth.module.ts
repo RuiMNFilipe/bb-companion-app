@@ -32,6 +32,7 @@ import { SessionService } from './session.service';
       provide: APP_FILTER,
       useClass: JwtExpiredFilter,
     },
+
     SessionService,
   ],
   exports: [AuthService, JwtModule, SessionService],

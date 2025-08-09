@@ -2,8 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
 import { ActivityIndicator, View } from 'react-native';
 import { useAuth } from '@/hooks/use-auth';
-
-const queryClient = new QueryClient();
+import { useState } from 'react';
 
 const RootLayoutNav = () => {
   const { isLoading, isAuthenticated } = useAuth();
@@ -22,14 +21,17 @@ const RootLayoutNav = () => {
         <Stack.Protected guard={isAuthenticated}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack.Protected>
-
-        <Stack.Screen name="index" />
+        <Stack.Protected guard={!isAuthenticated}>
+          <Stack.Screen name="index" />
+        </Stack.Protected>
       </Stack>
     </View>
   );
 };
 
 export default function RootLayout() {
+  const [queryClient] = useState(new QueryClient());
+
   return (
     <QueryClientProvider client={queryClient}>
       <RootLayoutNav />

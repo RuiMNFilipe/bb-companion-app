@@ -75,7 +75,10 @@ export const ControlledInput = forwardRef<TextInput, ControlledInputProps>(
                 placeholderTextColor="#8e8e93"
                 value={value || ''}
                 onChangeText={onChange}
-                onBlur={onBlur}
+                onBlur={() => {
+                  onChange(value.trim());
+                  onBlur();
+                }}
                 secureTextEntry={secureTextEntry && !showPassword}
                 keyboardType={keyboardType}
                 autoCapitalize={autoCapitalize}
