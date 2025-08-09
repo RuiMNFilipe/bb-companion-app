@@ -1,11 +1,7 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 
-import { useAuth } from '@/hooks/use-auth';
-
 export default function TabLayout() {
-  const { isAuthenticated } = useAuth();
-
   return (
     <Tabs screenOptions={{ headerShown: false }}>
       <Tabs.Screen
