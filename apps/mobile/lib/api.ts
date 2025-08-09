@@ -2,6 +2,7 @@ import * as Network from 'expo-network';
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 import { LoginFormData, SignUpFormData } from '@/types';
+import { Coach } from '@bb-companion/database';
 
 export const API_CONFIG = {
   BASE_URL: __DEV__
@@ -113,7 +114,7 @@ export const apiFetch = async <T>(
   }
 };
 
-const getAuthToken = async (): Promise<string | null> => {
+export const getAuthToken = async (): Promise<string | null> => {
   if (Platform.OS === 'web') {
     return localStorage.getItem('auth_token');
   }
@@ -121,14 +122,34 @@ const getAuthToken = async (): Promise<string | null> => {
   return await SecureStore.getItemAsync('auth_token');
 };
 
+export const storeAuthToken = async (token: string): Promise<void> => {
+  if (Platform.OS === 'web') {
+    void localStorage.setItem('auth_token', token);
+  } else {
+    await SecureStore.deleteItemAsync('auth_token');
+  }
+};
+
+export const removeAuthToken = async (): Promise<void> => {
+  if (Platform.OS === 'web') {
+    void localStorage.removeItem('auth_token');
+  } else {
+    await SecureStore.deleteItemAsync('auth_token');
+  }
+};
+
 export const authApi = {
   login: (data: LoginFormData) =>
-    apiFetch<{ message: string; access_token: string }>('/v1/auth/login', {
+    apiFetch<{
+      message: string;
+      access_token: string;
+      coach: Omit<Coach, 'password'>;
+    }>('/v1/auth/login', {
       method: 'POST',
       body: JSON.stringify(data),
     }),
   register: (data: Omit<SignUpFormData, 'confirmPassword'>) =>
-    apiFetch<Omit<SignUpFormData, 'confirmPassword'>>('/v1/auth/register', {
+    apiFetch<Omit<Coach, 'password'>>('/v1/auth/register', {
       method: 'POST',
       body: JSON.stringify(data),
     }),
@@ -151,5 +172,15 @@ export const authApi = {
     );
 
     return response.exists;
+  },
+
+  verifyToken: async () => {
+    const response = await apiFetch<{
+      user: Omit<Coach, 'password'>;
+      valid: boolean;
+      expires_at: Date;
+    }>('/v1/auth/verify', { method: 'POST' });
+
+    return response;
   },
 };

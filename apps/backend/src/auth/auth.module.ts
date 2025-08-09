@@ -7,10 +7,10 @@ import { JwtStrategy } from './passport/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { jwtConstants } from './passport/jwt.constants';
 import { AuthService } from './auth.service';
-import { CoachesService } from 'src/coaches/coaches.service';
 import { LocalStrategy } from './passport/local.strategy';
 import { APP_FILTER } from '@nestjs/core';
 import { JwtExpiredFilter } from './passport/jwtExpired.filter';
+import { SessionService } from './session.service';
 
 @Module({
   imports: [
@@ -25,7 +25,6 @@ import { JwtExpiredFilter } from './passport/jwtExpired.filter';
   ],
   controllers: [AuthController],
   providers: [
-    CoachesService,
     AuthService,
     LocalStrategy,
     JwtStrategy,
@@ -33,7 +32,8 @@ import { JwtExpiredFilter } from './passport/jwtExpired.filter';
       provide: APP_FILTER,
       useClass: JwtExpiredFilter,
     },
+    SessionService,
   ],
-  exports: [AuthService, JwtModule],
+  exports: [AuthService, JwtModule, SessionService],
 })
 export class AuthModule {}

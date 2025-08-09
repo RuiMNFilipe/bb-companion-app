@@ -1,19 +1,38 @@
-import { createQueryClient } from '@/lib/queryClient';
-import { QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
-import { useState } from 'react';
-import { Platform } from 'react-native';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ActivityIndicator, View } from 'react-native';
+import { useAuth } from '@/hooks/use-auth';
 
-export default function RootLayout() {
-  const [queryClient] = useState(createQueryClient);
+const queryClient = new QueryClient();
+
+const RootLayoutNav = () => {
+  const { isLoading, isAuthenticated } = useAuth();
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
+    <View style={{ flex: 1 }}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Protected guard={isAuthenticated}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack.Protected>
+
+        <Stack.Screen name="index" />
+      </Stack>
+    </View>
+  );
+};
+
+export default function RootLayout() {
+  return (
     <QueryClientProvider client={queryClient}>
-      <Stack screenOptions={{ headerShown: false }} />
-      {__DEV__ && Platform.OS === 'web' && (
-        <ReactQueryDevtools initialIsOpen={false} />
-      )}
+      <RootLayoutNav />
     </QueryClientProvider>
   );
 }
