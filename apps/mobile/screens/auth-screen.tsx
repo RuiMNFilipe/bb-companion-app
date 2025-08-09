@@ -48,7 +48,7 @@ export const AuthScreen = ({
       password: '',
       rememberMe: false,
     },
-    mode: 'onBlur',
+    mode: 'onTouched',
   });
 
   const signUpForm = useForm<SignUpFormData>({
@@ -74,11 +74,18 @@ export const AuthScreen = ({
     data: LoginFormData | SignUpFormData,
   ): Promise<void> => {
     try {
+      const trimmedInput = Object.fromEntries(
+        Object.entries(data).map(([key, value]) => [
+          key,
+          typeof value === 'string' ? value.trim() : value,
+        ]),
+      );
+
       if (isLoginMode) {
-        await onLogin(data as LoginFormData);
+        await onLogin(trimmedInput as LoginFormData);
       } else {
         const { confirmPassword: _cPassword, ...signUpData } =
-          data as SignUpFormData;
+          trimmedInput as SignUpFormData;
         await onSignUp(signUpData);
       }
     } catch (error: unknown) {

@@ -1,28 +1,33 @@
-import { authApi } from '@/lib/api';
+import { useAuth } from '@/hooks/use-auth';
 import { AuthScreen } from '@/screens';
 import { LoginFormData, SignUpFormData } from '@/types';
-import { Alert } from 'react-native';
-
-const loginFormSubmit = async (data: LoginFormData): Promise<void> => {
-  try {
-    void (await authApi.login(data));
-    void Alert.alert('Success', 'Logged in successfully!');
-  } catch (error) {
-    console.error(`loginFormSubmit Error: ${error}`);
-  }
-};
-
-const signUpFormSubmit = async (
-  data: Omit<SignUpFormData, 'confirmPassword'>,
-): Promise<void> => {
-  try {
-    void (await authApi.register(data));
-    void Alert.alert('Success', 'Account created successfully!');
-  } catch (error) {
-    console.error(`signUpFormSubmit Error: ${error}`);
-  }
-};
 
 export default function App() {
-  return <AuthScreen onLogin={loginFormSubmit} onSignUp={signUpFormSubmit} />;
+  const { login, register, isLoggingIn, isRegistering } = useAuth();
+
+  const handleLogin = async (data: LoginFormData) => {
+    try {
+      await login(data);
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  };
+
+  const handleRegister = async (
+    data: Omit<SignUpFormData, 'confirmPassword'>,
+  ) => {
+    try {
+      await register(data as SignUpFormData);
+    } catch (error) {
+      console.error('Register failed:', error);
+    }
+  };
+
+  return (
+    <AuthScreen
+      onLogin={handleLogin}
+      onSignUp={handleRegister}
+      isLoading={isLoggingIn || isRegistering}
+    />
+  );
 }

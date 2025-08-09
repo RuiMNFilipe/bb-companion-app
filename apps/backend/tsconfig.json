@@ -25,6 +25,6 @@
       "@bb-companion/database/*": ["../packages/database/src/*"]
     }
   },
-  "include": ["src/**/*", "lib/**/*", "types.d.ts"],
+  "include": ["src/**/*", "lib/**/*", "utils/**/*", "types/**/*"],
   "exclude": ["node_modules", "dist", "test"]
 }
