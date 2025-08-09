@@ -9,9 +9,9 @@
 //   const seedData = BB_DATA as ProcessedRaceRoster[];
 
 //   console.log('Cleaning up existing data...');
-//   void (await prisma.position.deleteMany());
-//   void (await prisma.race.deleteMany());
-//   void (await prisma.skill.deleteMany());
+//    (await prisma.position.deleteMany());
+//    (await prisma.race.deleteMany());
+//    (await prisma.skill.deleteMany());
 //   console.log('Existing data cleaned.');
 
 //   const allUniqueSkillNames = new Set<string>();
@@ -37,7 +37,7 @@
 //   });
 
 //   console.log(`Seeding ${skillsToCreate.length} unique skills...`);
-//   void (await prisma.skill.createMany({
+//    (await prisma.skill.createMany({
 //     data: skillsToCreate,
 //     skipDuplicates: true,
 //   }));
@@ -46,7 +46,7 @@
 //   console.log(`Seeding ${seedData.length} races with their positions...`);
 //   for (const raceData of seedData) {
 //     console.log(`Creating race: ${raceData.raceName}...`);
-//     void (await prisma.race.create({
+//      (await prisma.race.create({
 //       data: {
 //         name: raceData.raceName,
 //         slug: raceData.slug,

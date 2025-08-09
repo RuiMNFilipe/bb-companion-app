@@ -1,3 +1,3 @@
-export { prisma } from "./prisma";
+export { prisma } from './prisma';
 
-export type { Coach, Team, Prisma } from "@prisma/client"
+export type { Session, Coach, Team, Prisma } from '@prisma/client';

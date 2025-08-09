@@ -16,6 +16,10 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
     return prisma.team;
   }
 
+  get session(): Prisma.SessionDelegate {
+    return prisma.session;
+  }
+
   async onModuleInit() {
     await prisma.$connect();
   }
