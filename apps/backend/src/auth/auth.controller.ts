@@ -19,7 +19,6 @@ import { JwtAuthGuard } from './passport/jwt.guard';
 import { CurrentUser } from 'utils';
 import { SessionResponse } from './types';
 
-
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}

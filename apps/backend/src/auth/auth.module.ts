@@ -25,7 +25,6 @@ import { SessionService } from './session.service';
   ],
   controllers: [AuthController],
   providers: [
-    CoachesService,
     AuthService,
     LocalStrategy,
     JwtStrategy,
