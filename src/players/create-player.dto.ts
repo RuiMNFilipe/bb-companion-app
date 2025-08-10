@@ -3,7 +3,6 @@ import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsString, IsUUID, Min } from '
 
 export class CreatePlayerDto {
   @IsUUID()
-  @IsNotEmpty()
   team_id: string;
 
   @IsString()

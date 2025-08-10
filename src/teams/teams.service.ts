@@ -14,7 +14,7 @@ export class TeamsService {
   async create(createTeamDto: CreateTeamDto) {
     const coachId = await this.db.coach.findUnique({
       where: { username: createTeamDto.coach },
-      select: { id: true}
+      select: { id: true }
     })
     if (!coachId) {
       throw new NotFoundException("Coach not found. Could not create Team.")
@@ -32,7 +32,7 @@ export class TeamsService {
       throw new BadRequestException("No team name was given.")
     }
 
-    const endTreasury: number = calculateEndTreasury()
+    const finalTreasury: number = await calculateFinalTreasury(rosterId.id, createTeamDto)
 
     return await this.db.team.create({
       data: {
@@ -44,17 +44,11 @@ export class TeamsService {
         assistant_coaches: createTeamDto.assistant_coaches,
         cheerleaders: createTeamDto.cheerleaders,
         has_apothecary: createTeamDto.has_apothecary,
-        treasury: await calculateEndTreasury(rosterId.id, createTeamDto)
+        treasury: await calculateFinalTreasury(rosterId.id, createTeamDto)
       }
     });
 
-    async function getStaffCosts(rosterId: string, db: DatabaseService): Promise<{
-      reroll_cost: number;
-      dedicated_fans_cost: number;
-      assistant_coach_cost: number;
-      cheerleader_cost: number;
-      apothecary_cost: number;
-    }> {
+    async function getStaffCosts(rosterId: string, db: DatabaseService): Promise<number> {
       const costs = await db.roster.findFirst({
         where: { id: rosterId },
         select: {
@@ -70,25 +64,24 @@ export class TeamsService {
         throw new NotFoundException(`Could not find roster with ID: ${rosterId}`);
       }
 
-      return costs;
+      // Sum up all the costs
+      return Object.values(costs).reduce((total, cost) => total + (cost || 0), 0);
     }
 
-    async function getPositionalCosts(rosterId: string, createPlayerDtos: string[], db: DatabaseService) {
-      const costs = await db.positionalRoster.findMany({
-        where: { roster_id: rosterId },
-        select: {
-          
-        }
+    async function getPositionalCosts(rosterId: string, db: DatabaseService): Promise<number> {
+      const costsList = await db.positionalRoster.findMany({
+        select: { cost: true },
+        where: { roster_id: rosterId }
       });
 
-      if (!costs) {
-        throw new NotFoundException(`Could not find roster with ID: ${rosterId}`);
+      if (!costsList) {
+        throw new NotFoundException(`Could not find positional roster with roster ID: ${rosterId}`);
       }
 
-      return costs;
+      return costsList.reduce((tot, val) => tot + val.cost, 0);
     }
 
-    async function calculateEndTreasury(
+    async function calculateFinalTreasury(
       rosterId: string,
       createTeamDto: CreateTeamDto
     ): Promise<number> {
@@ -96,17 +89,15 @@ export class TeamsService {
       const staffCosts = await getStaffCosts(rosterId, this.db)
       const playerCosts = await getPositionalCosts(rosterId, this.db)
 
-      // Staff costs
-      const rerollCost = createTeamDto.rerolls * staffCosts.reroll_cost;
-      const dedicatedFansCost = createTeamDto.dedicated_fans * staffCosts.dedicated_fans_cost;
-      const assistantCoachesCost = createTeamDto.assistant_coaches * staffCosts.assistant_coach_cost;
-      const cheerleadersCost = createTeamDto.cheerleaders * staffCosts.cheerleader_cost;
-      const apothecaryCost = createTeamDto.has_apothecary ? staffCosts.apothecary_cost : 0;
-
-      // Player costs
-      const players = this.db.positional.findMany({
-
-      });
+      // TODO: Get TV from Ruleset (unimplemented)
+      // Checking Staff and Player costs vs allowed TV
+      return 1_000_000 - staffCosts - playerCosts
+      
+      // const rerollCost = createTeamDto.rerolls * staffCosts.reroll_cost;
+      // const dedicatedFansCost = createTeamDto.dedicated_fans * staffCosts.dedicated_fans_cost;
+      // const assistantCoachesCost = createTeamDto.assistant_coaches * staffCosts.assistant_coach_cost;
+      // const cheerleadersCost = createTeamDto.cheerleaders * staffCosts.cheerleader_cost;
+      // const apothecaryCost = createTeamDto.has_apothecary ? staffCosts.apothecary_cost : 0;
     }
   }
 
