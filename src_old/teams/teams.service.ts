@@ -1,7 +1,7 @@
 import { BadRequestException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
-import { DatabaseService } from 'src/database/database.service';
+import { DatabaseService } from './database/database.service';
 import { Team as PrismaTeam } from '@prisma/client';
 import { UUID } from 'crypto';
 
@@ -32,8 +32,6 @@ export class TeamsService {
       throw new BadRequestException("No team name was given.")
     }
 
-    const finalTreasury: number = await calculateFinalTreasury(rosterId.id, createTeamDto)
-
     return await this.db.team.create({
       data: {
         coach_id: coachId.id,
@@ -48,38 +46,6 @@ export class TeamsService {
       }
     });
 
-    async function getStaffCosts(rosterId: string, db: DatabaseService): Promise<number> {
-      const costs = await db.roster.findFirst({
-        where: { id: rosterId },
-        select: {
-          reroll_cost: true,
-          dedicated_fans_cost: true,
-          assistant_coach_cost: true,
-          cheerleader_cost: true,
-          apothecary_cost: true
-        }
-      });
-
-      if (!costs) {
-        throw new NotFoundException(`Could not find roster with ID: ${rosterId}`);
-      }
-
-      // Sum up all the costs
-      return Object.values(costs).reduce((total, cost) => total + (cost || 0), 0);
-    }
-
-    async function getPositionalCosts(rosterId: string, db: DatabaseService): Promise<number> {
-      const costsList = await db.positionalRoster.findMany({
-        select: { cost: true },
-        where: { roster_id: rosterId }
-      });
-
-      if (!costsList) {
-        throw new NotFoundException(`Could not find positional roster with roster ID: ${rosterId}`);
-      }
-
-      return costsList.reduce((tot, val) => tot + val.cost, 0);
-    }
 
     async function calculateFinalTreasury(
       rosterId: string,
@@ -98,6 +64,54 @@ export class TeamsService {
       // const assistantCoachesCost = createTeamDto.assistant_coaches * staffCosts.assistant_coach_cost;
       // const cheerleadersCost = createTeamDto.cheerleaders * staffCosts.cheerleader_cost;
       // const apothecaryCost = createTeamDto.has_apothecary ? staffCosts.apothecary_cost : 0;
+    }
+
+    async function getStaffCosts(rosterId: string, db: DatabaseService): Promise<number> {
+      type Costs = {
+        reroll_cost: number;
+        dedicated_fans_cost: number;
+        assistant_coach_cost: number;
+        cheerleader_cost: number;
+        apothecary_cost: number;
+      };
+
+      const costs: Costs = await db.roster.findFirst({
+        where: { id: rosterId },
+        select: {
+          reroll_cost: true,
+          dedicated_fans_cost: true,
+          assistant_coach_cost: true,
+          cheerleader_cost: true,
+          apothecary_cost: true
+        }
+      });
+      if (!costs) {
+        throw new NotFoundException(`Could not find roster with ID: ${rosterId}`);
+      }
+
+      const normalizedCosts: Costs = {
+        reroll_cost: costs.reroll_cost ?? 0,
+        dedicated_fans_cost: costs.dedicated_fans_cost ?? 0,
+        assistant_coach_cost: costs.assistant_coach_cost ?? 0,
+        cheerleader_cost: costs.cheerleader_cost ?? 0,
+        apothecary_cost: costs.apothecary_cost ?? 0,
+      };
+
+      // Sum up all the costs
+      return Object.values(normalizedCosts).reduce((total, cost) => total + (cost || 0), 0);
+    }
+
+    async function getPositionalCosts(rosterId: string, db: DatabaseService): Promise<number> {
+      const costsList = await db.positionalRoster.findMany({
+        select: { cost: true },
+        where: { roster_id: rosterId }
+      });
+
+      if (!costsList) {
+        throw new NotFoundException(`Could not find positional roster with roster ID: ${rosterId}`);
+      }
+
+      return costsList.reduce((tot, val) => tot + val.cost, 0);
     }
   }
 

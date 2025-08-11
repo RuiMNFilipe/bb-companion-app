@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Session {
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  token      String   @unique
+  deviceInfo String?  @map("device_info")
+  ipAddress  String?  @map("ip_address")
+  createdAt  DateTime @default(now()) @map("created_at")
+  expiresAt  DateTime @map("expires_at")
+
+  user Coach @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Coach {
+  id       String   @id @default(uuid())
+  username String   @unique
+  password String
+  email    String   @unique
+  active   Boolean? @default(true)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt() @map("updated_at")
+  lastLogin DateTime?
+
+  teams    Team[]
+  sessions Session[]
+}
+
+model Team {
+  id               String  @id @default(uuid())
+  name             String
+  teamValue        Int
+  treasury         Int
+  rerolls          Int
+  dedicatedFans    Int     @map("dedicated_fans")
+  assistantCoaches Int     @map("assistant_coaches")
+  cheerleaders     Int
+  hasApothecary    Boolean @map("has_apothecary")
+  isExperienced    Boolean @map("is_experienced")
+  isSuspended      Boolean @map("is_suspended")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+
+  coach   Coach  @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  coachId String @map("coach_id")
+}

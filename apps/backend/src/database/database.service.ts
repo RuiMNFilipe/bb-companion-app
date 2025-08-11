@@ -16,6 +16,10 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
     return prisma.team;
   }
 
+  get roster(): Prisma.RosterDelegate {
+    return prisma.roster;
+  }
+
   get session(): Prisma.SessionDelegate {
     return prisma.session;
   }

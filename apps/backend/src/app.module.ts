@@ -5,18 +5,10 @@ import { ConfigModule } from '@nestjs/config';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import { utilities as nestWinstonModuleUtilities } from 'nest-winston';
-<<<<<<< HEAD:src/app.module.ts
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { CoachesModule } from './coaches/coaches.module';
 import { DatabaseService } from './database/database.service';
-=======
-// import { StaticDataModule } from './static-data/static-data.module';
-import { DatabaseModule } from './database/database.module';
-import { CoachesModule } from './coaches/coaches.module';
-import { AuthService } from './auth/auth.service';
-import { AuthModule } from './auth/auth.module';
->>>>>>> origin/develop:apps/backend/src/app.module.ts
 import { TeamsModule } from './teams/teams.module';
 
 @Module({
@@ -39,7 +31,6 @@ import { TeamsModule } from './teams/teams.module';
         }),
       ],
     }),
-<<<<<<< HEAD:src/app.module.ts
     DatabaseModule,
     AuthModule,
     CoachesModule,
@@ -48,15 +39,5 @@ import { TeamsModule } from './teams/teams.module';
   controllers: [AppController],
   providers: [AppService, DatabaseService],
   exports: [DatabaseService]
-=======
-    // StaticDataModule,
-    DatabaseModule,
-    CoachesModule,
-    AuthModule,
-    TeamsModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService, AuthService],
->>>>>>> origin/develop:apps/backend/src/app.module.ts
 })
 export class AppModule {}
