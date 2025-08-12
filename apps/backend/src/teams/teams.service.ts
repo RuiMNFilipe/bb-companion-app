@@ -40,14 +40,13 @@ async create(createTeamDto: CreateTeamDto, coachUsername: string) {
         assistant_coaches: createTeamDto.assistant_coaches,
         cheerleaders: createTeamDto.cheerleaders,
         has_apothecary: createTeamDto.has_apothecary,
-        treasury: await calculateFinalTreasury(rosterId.id, createTeamDto)
+        treasury: await calculateFinalTreasury(rosterId.id)
       }
     });
 
 
     async function calculateFinalTreasury(
       rosterId: string,
-      createTeamDto: CreateTeamDto
     ): Promise<number> {
 
       const staffCosts = await getStaffCosts(rosterId, this.databaseService)
@@ -64,7 +63,7 @@ async create(createTeamDto: CreateTeamDto, coachUsername: string) {
       // const apothecaryCost = createTeamDto.has_apothecary ? staffCosts.apothecary_cost : 0;
     }
 
-    async function getStaffCosts(rosterId: string, databaseService: DatabaseService): Promise<number> {
+    async function getStaffCosts(rosterId: string): Promise<number> {
       type Costs = {
         reroll_cost: number;
         dedicated_fans_cost: number;
@@ -99,7 +98,7 @@ async create(createTeamDto: CreateTeamDto, coachUsername: string) {
       return Object.values(normalizedCosts).reduce((total, cost) => total + (cost || 0), 0);
     }
 
-    async function getPositionalCosts(rosterId: string, databaseService: DatabaseService): Promise<number> {
+    async function getPositionalCosts(rosterId: string): Promise<number> {
       const costsList = await this.databaseService.positionalRoster.findMany({
         select: { cost: true },
         where: { roster_id: rosterId }

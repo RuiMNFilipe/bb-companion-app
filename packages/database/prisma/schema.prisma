@@ -9,8 +9,8 @@ datasource db {
 
 
 model Session {
-  id         String   @id @default(uuid())
-  userId     String   @map("user_id")
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String   @db.Uuid @map("user_id")
   token      String   @unique
   deviceInfo String?  @map("device_info")
   ipAddress  String?  @map("ip_address")
@@ -35,6 +35,8 @@ model Coach {
   // Relations
   teams Team[]
   sessions Session[]
+
+  @@map("coaches")
 }
 
 model Team {
@@ -66,7 +68,7 @@ model Team {
   homeMatches Match[] @relation("HomeTeam")
   awayMatches Match[] @relation("AwayTeam")
 
-  @@map("team")
+  @@map("teams")
 }
 
 model Roster {
@@ -90,7 +92,7 @@ model Roster {
   teams             Team[]
   positionalRosters PositionalRoster[]
 
-  @@map("roster")
+  @@map("rosters")
 }
 
 model Positional {
@@ -118,7 +120,7 @@ model Positional {
   positionalRosters PositionalRoster[]
   positionalSkills  PositionalSkill[]
 
-  @@map("positional")
+  @@map("positionals")
 }
 
 model PositionalSkill {
@@ -129,7 +131,7 @@ model PositionalSkill {
   skill        Skill      @relation(fields: [skillId], references: [id])
 
   @@id([positionalId, skillId])
-  @@map("positional_skill")
+  @@map("positional_skills")
 }
 
 model PositionalRoster {
@@ -144,7 +146,7 @@ model PositionalRoster {
   roster     Roster     @relation(fields: [rosterId], references: [id])
 
   @@id([positionalId, rosterId])
-  @@map("positional_roster")
+  @@map("positional_rosters")
 }
 
 model Player {
@@ -179,7 +181,7 @@ model Player {
   playerSkills   PlayerSkill[]
   playerInjuries PlayerInjury[]
 
-  @@map("player")
+  @@map("players")
 }
 
 model Injury {
@@ -194,7 +196,7 @@ model Injury {
   // Relations
   playerInjuries PlayerInjury[]
 
-  @@map("injury")
+  @@map("injurys")
 }
 
 model PlayerInjury {
@@ -207,7 +209,7 @@ model PlayerInjury {
   injury Injury @relation(fields: [injuryId], references: [id])
 
   @@id([playerId, injuryId])
-  @@map("player_injury")
+  @@map("player_injuries")
 }
 
 model Skill {
@@ -223,7 +225,7 @@ model Skill {
   playerSkills     PlayerSkill[]
   positionalSkills PositionalSkill[]
 
-  @@map("skill")
+  @@map("skills")
 }
 
 model PlayerSkill {
@@ -237,7 +239,7 @@ model PlayerSkill {
   skill  Skill  @relation(fields: [skillId], references: [id])
 
   @@id([playerId, skillId])
-  @@map("player_skill")
+  @@map("player_skills")
 }
 
 model Match {
@@ -260,5 +262,5 @@ model Match {
   homeTeam Team @relation("HomeTeam", fields: [teamHomeId], references: [id])
   awayTeam Team @relation("AwayTeam", fields: [teamAwayId], references: [id])
 
-  @@map("match")
+  @@map("matchs")
 }
