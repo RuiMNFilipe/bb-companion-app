@@ -9,4 +9,5 @@ export type CreateSessionData = {
   token: string;
   deviceInfo?: string;
   ipAddress?: string;
+  rememberMe?: boolean;
 };
