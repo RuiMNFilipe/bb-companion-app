@@ -18,7 +18,9 @@
     "build:frontend": "turbo build --filter=mobile",
     "docker:up": "docker compose -f ./apps/backend/docker/docker-compose.yml up -d",
     "docker:dev": "docker compose up -d && turbo dev",
-    "docker:backend": "docker compose up -d database && turbo dev --filter=backend"
+    "docker:backend": "docker compose up -d database && turbo dev --filter=backend",
+    "docker:test:up": "docker compose up",
+    "backend:test": "turbo test --filter=backend"
   },
   "devDependencies": {
     "turbo": "^2.5.5"
