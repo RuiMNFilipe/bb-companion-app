@@ -39,6 +39,7 @@ export class AuthService {
     coach: Coach,
     deviceInfo?: string,
     ipAddress?: string,
+    rememberMe?: boolean,
   ): Promise<{
     access_token: string;
     coach: {
@@ -62,6 +63,7 @@ export class AuthService {
         token: access_token,
         deviceInfo,
         ipAddress,
+        rememberMe,
       });
 
       await this.databaseService.coach.update({

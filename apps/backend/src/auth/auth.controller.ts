@@ -30,8 +30,14 @@ export class AuthController {
     @Req() req: { user: Coach },
     @Headers('user-agent') userAgent?: string,
     @Ip() ipAddress?: string,
+    @Body() rememberMe?: boolean,
   ) {
-    return await this.authService.login(req.user, userAgent, ipAddress);
+    return await this.authService.login(
+      req.user,
+      userAgent,
+      ipAddress,
+      rememberMe,
+    );
   }
 
   @Post('register')
