@@ -49,8 +49,8 @@ async create(createTeamDto: CreateTeamDto, coachUsername: string) {
       rosterId: string,
     ): Promise<number> {
 
-      const staffCosts = await getStaffCosts(rosterId, this.databaseService)
-      const playerCosts = await getPositionalCosts(rosterId, this.databaseService)
+      const staffCosts = await getStaffCosts(rosterId)
+      const playerCosts = await getPositionalCosts(rosterId)
 
       // TODO: Get TV from Ruleset (unimplemented)
       // Checking Staff and Player costs vs allowed TV

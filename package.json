@@ -21,6 +21,7 @@
     "docker:backend": "docker compose up -d database && turbo dev --filter=backend"
   },
   "devDependencies": {
+    "@types/node": "^24.2.1",
     "turbo": "^2.5.5"
   },
   "packageManager": "pnpm@10.13.1"
