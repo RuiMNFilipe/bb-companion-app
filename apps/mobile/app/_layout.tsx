@@ -3,6 +3,7 @@ import { Stack } from 'expo-router';
 import { ActivityIndicator, View } from 'react-native';
 import { useAuth } from '@/hooks/use-auth';
 import { useState } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const RootLayoutNav = () => {
   const { isLoading, isAuthenticated } = useAuth();
@@ -19,7 +20,7 @@ const RootLayoutNav = () => {
     <View style={{ flex: 1 }}>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Protected guard={isAuthenticated}>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
         </Stack.Protected>
         <Stack.Protected guard={!isAuthenticated}>
           <Stack.Screen name="index" />
@@ -34,7 +35,9 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RootLayoutNav />
+      <GestureHandlerRootView>
+        <RootLayoutNav />
+      </GestureHandlerRootView>
     </QueryClientProvider>
   );
 }
