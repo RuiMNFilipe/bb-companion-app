@@ -15,6 +15,15 @@ export class TeamsService {
       where: {
         slug,
       },
+      include: {
+        positions: {
+          select: {
+            name: true,
+            cost: true,
+            quantity: true,
+          },
+        },
+      },
     });
 
     if (!team) {
