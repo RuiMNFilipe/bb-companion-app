@@ -41,6 +41,7 @@ model Team {
   name        String  @unique
   displayName String  @map("display_name")
   description String?
+  slug        String  @unique
 
   // Team rules
   minPlayers Int @default(11) @map("min_players")

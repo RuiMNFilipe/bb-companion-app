@@ -174,6 +174,7 @@ async function seedTeams(teams: FUMMBLTeam[], rulesetData?: any) {
         },
         create: {
           name: teamData.name.toLowerCase().replace(/\s+/g, '_'),
+          slug: teamData.name.toLowerCase().replace(/\s+/g, '_'),
           displayName: teamData.name,
           description: teamData.info,
           rerollCost: teamData.rerollCost,
