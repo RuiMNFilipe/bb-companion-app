@@ -151,8 +151,8 @@ async function seedTeams(teams: FUMMBLTeam[], rulesetData?: any) {
       }
 
       let tier: TeamTier = TeamTier.TIER_1;
-      if (rulesetData.rosters) {
-        const rosterInfo = rulesetData.rosters.find(
+      if (rulesetData.teams) {
+        const rosterInfo = rulesetData.teams.find(
           (r: any) => r.id === teamData.id,
         );
         if (rosterInfo.tier) {
