@@ -32,26 +32,217 @@ model Coach {
   updatedAt DateTime  @updatedAt() @map("updated_at")
   lastLogin DateTime?
 
-  teams    Team[]
   sessions Session[]
+  rosters  Roster[]
 }
 
 model Team {
-  id               String  @id @default(uuid())
-  name             String
-  teamValue        Int
-  treasury         Int
-  rerolls          Int
-  dedicatedFans    Int     @map("dedicated_fans")
-  assistantCoaches Int     @map("assistant_coaches")
-  cheerleaders     Int
-  hasApothecary    Boolean @map("has_apothecary")
-  isExperienced    Boolean @map("is_experienced")
-  isSuspended      Boolean @map("is_suspended")
+  id          String  @id @default(uuid())
+  name        String  @unique
+  displayName String  @map("display_name")
+  description String?
+
+  // Team rules
+  minPlayers Int @default(11) @map("min_players")
+  maxPlayers Int @default(16) @map("max_players")
+  rerollCost Int @map("reroll_cost")
+
+  // Tier and difficulty
+  tier       TeamTier   @default(TIER_1)
+  difficulty Difficulty @default(MEDIUM)
+
+  // Game Edition
+  edition String @default("2020")
 
   createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt() @map("updated_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  coach   Coach  @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  // Relations
+  positions  Position[]
+  rosters    Roster[]
+  teamSkills TeamSkill[]
+
+  @@map("teams")
+}
+
+model Position {
+  id String @id @default(uuid())
+
+  name     String
+  cost     Int
+  quantity Int
+
+  movement   Int
+  strength   Int
+  agility    Int
+  armorValue Int @map("armor_value")
+
+  startingSkills String[] @default([]) @map("starting_skills")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  teamId String @map("team_id")
+
+  team        Team          @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  players     Player[]
+  skillAccess SkillAccess[]
+
+  @@unique([teamId, name])
+  @@index([teamId])
+  @@map("positions")
+}
+
+model Roster {
+  id   String @id @default(uuid())
+  name String
+
+  teamValue        Int     @default(0) @map("team_value")
+  treasury         Int     @default(0)
+  rerolls          Int     @default(0)
+  dedicatedFans    Int     @default(1) @map("dedicated_fans")
+  assistantCoaches Int     @default(0) @map("assistant_coaches")
+  cheerleaders     Int     @default(0)
+  hasApothecary    Boolean @default(false) @map("has_apothecary")
+
+  isExperienced Boolean @default(false) @map("is_experienced")
+  isSuspended   Boolean @default(false) @map("is_suspended")
+  isRetired     Boolean @default(false) @map("is_retired")
+
+  isShareable Boolean @default(true) @map("is_shareable")
+  shareToken  String? @unique @map("share_token")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
   coachId String @map("coach_id")
+  teamId  String @map("team_id")
+
+  coach   Coach    @relation(fields: [coachId], references: [id], onDelete: Cascade)
+  team    Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  players Player[]
+
+  @@index([coachId])
+  @@index([teamId])
+  @@map("rosters")
+}
+
+model Player {
+  id     String @id @default(uuid())
+  name   String
+  number Int
+
+  starPlayerPoints Int @default(0) @map("star_player_points")
+  improvements     Int @default(0)
+  matchesPlayed    Int @default(0) @map("matches_played")
+
+  movement   Int
+  strength   Int
+  agility    Int
+  armorValue Int @map("armor_value")
+
+  isActive     Boolean  @default(true) @map("is_active")
+  injuries     String[] @default([])
+  missNextGame Boolean  @default(false) @map("miss_next_game")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  rosterId   String @map("roster_id")
+  positionId String @map("position_id")
+
+  roster   Roster        @relation(fields: [rosterId], references: [id], onDelete: Cascade)
+  position Position      @relation(fields: [positionId], references: [id], onDelete: Cascade)
+  skills   PlayerSkill[]
+
+  @@unique([rosterId, number])
+  @@index([rosterId])
+  @@map("players")
+}
+
+model Skill {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  description String
+  category    SkillCategory
+
+  cost     Int     @default(20)
+  isNormal Boolean @default(true) @map("is_normal")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  teamSkills   TeamSkill[]
+  playerSkills PlayerSkill[]
+
+  @@map("skills")
+}
+
+model TeamSkill {
+  id String @id @default(uuid())
+
+  teamId  String @map("team_id")
+  skillId String @map("skill_id")
+
+  team  Team  @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, skillId])
+  @@map("team_skills")
+}
+
+model SkillAccess {
+  id String @id @default(uuid())
+
+  positionId String        @map("position_id")
+  category   SkillCategory
+
+  position Position @relation(fields: [positionId], references: [id], onDelete: Cascade)
+
+  @@unique([positionId, category])
+  @@map("skill_access")
+}
+
+model PlayerSkill {
+  id String @id @default(uuid())
+
+  playerId String @map("player_id")
+  skillId  String @map("skill_id")
+
+  acquisitionType SkillAcquisition @default(ADVANCEMENT) @map("acquisition_type")
+  isDouble        Boolean          @default(false) @map("is_double")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  skill  Skill  @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([playerId, skillId])
+  @@map("player_skills")
+}
+
+enum TeamTier {
+  TIER_1
+  TIER_2
+  TIER_3
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum SkillCategory {
+  GENERAL
+  AGILITY
+  PASSING
+  STRENGTH
+  MUTATION
+}
+
+enum SkillAcquisition {
+  STARTING
+  ADVANCEMENT
+  INJURY
 }

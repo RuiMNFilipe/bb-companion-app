@@ -24,6 +24,9 @@
     "dist/*",
     "dist/**/*"
   ],
+  "prisma": {
+    "seed": "ts-node src/seed.ts"
+  },
   "scripts": {
     "db:generate": "pnpm dlx prisma generate",
     "db:push": "pnpm dlx prisma db push",
