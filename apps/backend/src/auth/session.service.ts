@@ -25,7 +25,9 @@ export class SessionService {
         deviceInfo: data.deviceInfo,
         ipAddress: data.ipAddress,
         createdAt: new Date(),
-        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        expiresAt: data.rememberMe
+          ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+          : new Date(Date.now() + 24 * 60 * 60 * 1000),
       },
     });
   }
