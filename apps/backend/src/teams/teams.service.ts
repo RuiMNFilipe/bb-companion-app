@@ -32,14 +32,14 @@ async create(createTeamDto: CreateTeamDto, coachUsername: string) {
 
     return await this.databaseService.team.create({
       data: {
-        coach_id: coachId.id,
-        roster_id: rosterId.id,
+        coachId: coachId.id,
+        rosterId: rosterId.id,
         name: createTeamDto.name,
         rerolls: createTeamDto.rerolls,
-        dedicated_fans: createTeamDto.dedicated_fans,
-        assistant_coaches: createTeamDto.assistant_coaches,
+        dedicatedFans: createTeamDto.dedicated_fans,
+        assistantCoaches: createTeamDto.assistant_coaches,
         cheerleaders: createTeamDto.cheerleaders,
-        has_apothecary: createTeamDto.has_apothecary,
+        hasApothecary: createTeamDto.has_apothecary,
         treasury: await calculateFinalTreasury(rosterId.id)
       }
     });

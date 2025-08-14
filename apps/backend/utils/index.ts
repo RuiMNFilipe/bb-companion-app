@@ -24,7 +24,7 @@ export const CurrentUser = createParamDecorator(
       return user[data];
     }
 
-    const { password: _password, ...safeUser } = user;
+    const { passwordHash: _password, ...safeUser } = user;
     return safeUser;
   },
 );
