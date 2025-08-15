@@ -25,7 +25,7 @@ model Session {
 model Coach {
   id            String   @id @default(uuid()) @db.Uuid
   username      String   @unique
-  passwordHash  String   @map("password_hash")
+  password  String   @map("password_hash")
   email         String   @unique
   active        Boolean  @default(true)
   createdAt     DateTime @default(now()) @map("created_at")

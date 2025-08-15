@@ -19,11 +19,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     sub: string;
     username: string;
     email: string;
-  }): Promise<Omit<Coach, 'passwordHash'>> {
+  }): Promise<Omit<Coach, 'password'>> {
     const coach = await this.coachesService.findByUsername(payload.username);
     if (!coach) throw new UnauthorizedException('Coach not found');
 
-    const { passwordHash: _password, ...result } = coach;
+    const { password: _password, ...result } = coach;
     return result;
   }
 }

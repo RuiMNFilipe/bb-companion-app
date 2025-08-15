@@ -28,7 +28,7 @@ export class AuthService {
     password: string,
   ): Promise<Coach | null> {
     const coach = await this.coachesService.findByUsername(username);
-    if (coach && (await validatePassword(password, coach.passwordHash))) {
+    if (coach && (await validatePassword(password, coach.password))) {
       return coach;
     }
 
@@ -105,7 +105,7 @@ export class AuthService {
         password: hashedPassword,
       });
 
-      const { passwordHash: _, ...safeCoach } = createdCoach;
+      const { password: _, ...safeCoach } = createdCoach;
 
       return safeCoach as Coach;
     } catch (error) {
