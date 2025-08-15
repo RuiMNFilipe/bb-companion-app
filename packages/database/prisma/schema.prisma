@@ -164,6 +164,7 @@ model Player {
 model Skill {
   id          String        @id @default(uuid())
   name        String        @unique
+  slug        String        @unique
   description String
   category    SkillCategory
 

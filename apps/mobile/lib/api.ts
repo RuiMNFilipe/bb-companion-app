@@ -2,7 +2,8 @@ import * as Network from 'expo-network';
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 import { LoginFormData, SignUpFormData } from '@/types';
-import { Coach } from '@bb-companion/database';
+import { Coach, Skill, Team } from '@bb-companion/database';
+import { TeamWithPositions } from '@bb-companion/shared';
 
 export const API_CONFIG = {
   BASE_URL: __DEV__
@@ -183,4 +184,25 @@ export const authApi = {
 
     return response;
   },
+};
+
+export const teamApi = {
+  getAll: () =>
+    apiFetch<Team[]>(`/v1/teams`, {
+      method: 'GET',
+    }),
+
+  getBySlug: (slug: string) =>
+    apiFetch<TeamWithPositions | null>(`/v1/teams/${slug}`, {
+      method: 'GET',
+    }),
+};
+
+export const skillsApi = {
+  getAll: () =>
+    apiFetch<Skill[]>('/v1/skills', {
+      method: 'GET',
+    }),
+
+  getBySlug: (slug: string) => apiFetch<Skill | null>(`/v1/skills/${slug}`),
 };

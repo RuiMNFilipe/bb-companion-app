@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { Team } from '@bb-companion/database';
+import { TeamWithPositions } from '@bb-companion/shared';
 
 @Injectable()
 export class TeamsService {
@@ -10,7 +11,7 @@ export class TeamsService {
     return this.databaseService.team.findMany();
   }
 
-  async findOneBySlug(slug: string): Promise<Team | null> {
+  async findOneBySlug(slug: string): Promise<TeamWithPositions | null> {
     const team = await this.databaseService.team.findUnique({
       where: {
         slug,

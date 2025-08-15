@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
+import { SkillsScreen } from '@/screens';
 
 const Skills = () => {
   return (
-    <View>
-      <Text>Skills</Text>
+    <View style={{ flex: 1 }}>
+      <SkillsScreen />
     </View>
   );
 };

@@ -3,3 +3,5 @@ export interface JwtPayload {
   username: string;
   email: string;
 }
+
+export * from './types/api-types';

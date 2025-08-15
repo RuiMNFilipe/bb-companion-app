@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { Difficulty, TeamTier, SkillCategory } from '@prisma/client';
+import slugify from 'slugify';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -114,11 +115,17 @@ function mapDifficulty(info?: string): Difficulty {
   return Difficulty.MEDIUM;
 }
 
-async function seedSkills(skills: FUMMBLSkill[]) {
+async function seedSkills(
+  skills: FUMMBLSkill[],
+  skillDescriptionsMap: Map<string, string>,
+) {
   console.log('🎯 Seeding skills...');
 
   for (const skill of skills) {
     try {
+      const description =
+        skillDescriptionsMap.get(skill.name) || `${skill.type} skill`;
+
       await prisma.skill.upsert({
         where: { name: skill.name },
         update: {
@@ -126,7 +133,12 @@ async function seedSkills(skills: FUMMBLSkill[]) {
         },
         create: {
           name: skill.name,
-          description: `${skill.type} skill`,
+          slug: slugify(skill.name, {
+            replacement: '_',
+            lower: true,
+            strict: true,
+          }),
+          description,
           category: mapSkillCategory(skill.category),
           cost: 20000,
           isNormal: true,
@@ -299,15 +311,38 @@ async function clearExistingData() {
   console.log('✅ Existing data cleared');
 }
 
+interface ScrapedSkill {
+  [name: string]: string;
+}
+
 async function main() {
   console.log('🌱 Starting database seed...');
 
   try {
     const fummblDataPath = path.join(__dirname, 'bb_data.json');
+    const skillsDescriptionPath = path.join(__dirname, 'skills.json');
 
     if (!fs.existsSync(fummblDataPath)) {
       throw new Error(`FUMMBL data file not found at: ${fummblDataPath}.`);
     }
+
+    if (!fs.existsSync(skillsDescriptionPath)) {
+      throw new Error(
+        `Skills description file not found at: ${skillsDescriptionPath}.`,
+      );
+    }
+
+    const rawSkillsDescriptions = fs.readFileSync(
+      skillsDescriptionPath,
+      'utf-8',
+    );
+    const skillsDescriptions: Record<string, string> = JSON.parse(
+      rawSkillsDescriptions,
+    );
+
+    const skillDescriptionsMap = new Map<string, string>(
+      Object.entries(skillsDescriptions),
+    );
 
     const rawData = fs.readFileSync(fummblDataPath, 'utf-8');
     const fummblData: FUMMBLData = JSON.parse(rawData);
@@ -318,13 +353,19 @@ async function main() {
       throw new Error('Invalid FUMMBL data: missing skills array.');
     }
 
+    if (!fummblData.skills || !Array.isArray(fummblData.skills)) {
+      throw new Error(
+        'Invalid FUMMBL data: missing skills array in FUMMBL data.',
+      );
+    }
+
     console.log(
       `📊 Found ${teams.length} teams and ${fummblData.skills.length} skills`,
     );
 
     await clearExistingData();
 
-    await seedSkills(fummblData.skills);
+    await seedSkills(fummblData.skills, skillDescriptionsMap);
     await seedTeams(teams, fummblData.ruleset);
 
     console.log('🎉 Database seeding completed successfully!');

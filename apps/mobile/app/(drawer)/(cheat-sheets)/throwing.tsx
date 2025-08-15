@@ -1,11 +1,11 @@
 import { View } from 'react-native';
 import React from 'react';
-import ThrowTemplate from '@/components/ui/throw-template';
+import { ThrowingScreen } from '@/screens';
 
 const Throwing = () => {
   return (
     <View style={{ flex: 1 }}>
-      <ThrowTemplate />
+      <ThrowingScreen />
     </View>
   );
 };

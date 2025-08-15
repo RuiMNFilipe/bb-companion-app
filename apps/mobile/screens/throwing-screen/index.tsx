@@ -1,13 +1,11 @@
 import { View } from 'react-native';
 import React from 'react';
-import Grid from './grid';
+import Grid from '@/components/throwing/grid';
 
-const ThrowTemplate = () => {
+export const ThrowingScreen = () => {
   return (
     <View>
       <Grid />
     </View>
   );
 };
-
-export default ThrowTemplate;

@@ -11,6 +11,7 @@ import { CoachesModule } from './coaches/coaches.module';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { TeamsModule } from './teams/teams.module';
+import { SkillsModule } from './skills/skills.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { TeamsModule } from './teams/teams.module';
     CoachesModule,
     AuthModule,
     TeamsModule,
+    SkillsModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService],

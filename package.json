@@ -16,6 +16,7 @@
     "dev:frontend": "turbo dev --filter=mobile",
     "build:backend": "turbo build --filter=backend",
     "build:frontend": "turbo build --filter=mobile",
+    "build:shared": "turbo build --filter=@bb-companion/shared",
     "docker:up": "docker compose -f ./apps/backend/docker/docker-compose.yml up -d",
     "docker:dev": "docker compose up -d && turbo dev",
     "docker:backend": "docker compose up -d database && turbo dev --filter=backend",

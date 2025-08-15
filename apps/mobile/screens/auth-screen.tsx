@@ -59,7 +59,7 @@ export const AuthScreen = ({
       password: '',
       confirmPassword: '',
     },
-    mode: 'onBlur',
+    mode: 'onTouched',
   });
 
   const loginFormState = loginForm.formState;
